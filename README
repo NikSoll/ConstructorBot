@@ -35,7 +35,7 @@ GUI для ботов - tkinter
 - Графический интерфейс для запуска бота
 
 ### Технические:
-- Генерация `.exe` через PyInstaller
+- Генерация .exe через PyInstaller
 - Асинхронное ядро для всех типов ботов
 - Разделение на адаптеры платформ (легко добавить новую)
 - Поддержка Long Poll для VK
@@ -57,7 +57,6 @@ Max адаптер - Заглушка
 
 ## Быстрый старт
 
-```bash
 git clone https://github.com/NikSoll/ConstructorBot.git
 cd ConstructorBot
 python -m venv .venv
