@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Ошибка оплаты{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/payment.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="payment-fail-container">
+    <div class="fail-icon">❌</div>
+    <h1 class="fail-title">Ошибка оплаты</h1>
+    <p class="fail-message">
+        К сожалению, платеж не прошел.<br>
+        Пожалуйста, попробуйте еще раз или выберите другой способ оплаты.
+    </p>
+    
+    {% if bot_id %}
+    <a href="{{ url_for('payment.checkout', bot_id=bot_id) }}" class="retry-link">
+        🔄 Попробовать снова
+    </a>
+    {% endif %}
+    
+    <a href="#" class="support-link">
+        📧 Связаться с поддержкой
+    </a>
+</div>
+{% endblock %}

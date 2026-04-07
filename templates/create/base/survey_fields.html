@@ -1,0 +1,145 @@
+{% block form_title %}📋 Опросник{% endblock %}
+
+<div class="form-section">
+    <h2>🔧 Основные настройки</h2>
+    <div class="form-group">
+        <label for="bot_name">Название бота</label>
+        <input type="text" id="bot_name" name="bot_name" class="form-control" value="Опросник-бот">
+    </div>
+</div>
+
+<div class="form-section">
+    <h2>📋 Опросы</h2>
+    <div class="info-box" style="margin-bottom: 15px; padding: 10px; background: #f0f7ff;">
+        <strong>📌 Вы можете создать несколько опросов в одном боте.</strong><br>
+        Пользователь сможет выбрать, какой опрос пройти.
+    </div>
+    <div id="surveys-container"></div>
+    <button type="button" class="btn btn-outline add-btn" id="add-survey">➕ Добавить опрос</button>
+</div>
+
+<template id="survey-template">
+    <div class="array-item survey-item" style="margin-bottom: 30px; border: 2px solid #667eea; background: #faf5ff;">
+        <button type="button" class="remove-item" title="Удалить опрос">✖</button>
+
+        <div class="form-group">
+            <label>Название опроса *</label>
+            <input type="text" name="survey_name[]" class="form-control" required placeholder="Например: Обратная связь">
+        </div>
+
+        <div class="form-group">
+            <label>Описание опроса</label>
+            <textarea name="survey_desc[]" class="form-control" rows="2" placeholder="Краткое описание опроса"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label class="checkbox-label">
+                <input type="checkbox" name="survey_anonymous[]" value="true"> Анонимные ответы
+            </label>
+        </div>
+
+        <div class="form-group">
+            <label>❓ Вопросы</label>
+            <div class="questions-container" style="margin-left: 20px;"></div>
+            <button type="button" class="btn btn-outline add-question-btn" style="margin-left: 20px;">➕ Добавить вопрос</button>
+        </div>
+    </div>
+</template>
+
+<template id="question-template">
+    <div class="array-item question-item" style="margin-top: 10px;">
+        <button type="button" class="remove-item" title="Удалить вопрос">✖</button>
+
+        <div class="form-group">
+            <label>Текст вопроса *</label>
+            <input type="text" name="question_text[]" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label>Тип вопроса</label>
+            <select name="question_type[]" class="form-control">
+                <option value="text">📝 Текстовый ответ</option>
+                <option value="single">🔘 Один вариант</option>
+                <option value="multiple">✅ Несколько вариантов</option>
+                <option value="scale">📊 Оценка по шкале</option>
+            </select>
+        </div>
+
+        <div class="form-group options-field" style="display: none;">
+            <label>Варианты ответов (каждый с новой строки)</label>
+            <textarea name="question_options[]" class="form-control" rows="3" placeholder="Вариант 1&#10;Вариант 2&#10;Вариант 3"></textarea>
+        </div>
+
+        <div class="form-group scale-fields" style="display: none;">
+            <div class="form-row">
+                <div class="form-group half">
+                    <label>Мин. значение</label>
+                    <input type="number" name="scale_min[]" class="form-control" value="1" min="1" max="4">
+                    <small>от 1 до 4</small>
+                </div>
+                <div class="form-group half">
+                    <label>Макс. значение</label>
+                    <input type="number" name="scale_max[]" class="form-control" value="5" min="2" max="5">
+                    <small>от 2 до 5 (не больше 5)</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="checkbox-label">
+                <input type="checkbox" name="question_required[]" value="true" checked> Обязательный вопрос
+            </label>
+        </div>
+    </div>
+</template>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let surveyCounter = 0;
+
+    //добавление нового опроса
+    document.getElementById('add-survey')?.addEventListener('click', function() {
+        const container = document.getElementById('surveys-container');
+        const template = document.getElementById('survey-template');
+        const clone = template.content.cloneNode(true);
+
+        const surveyIndex = surveyCounter++;
+
+        container.appendChild(clone);
+
+        const surveyItem = container.lastElementChild;
+        const addQuestionBtn = surveyItem.querySelector('.add-question-btn');
+        const questionsContainer = surveyItem.querySelector('.questions-container');
+
+        addQuestionBtn?.addEventListener('click', function() {
+            const qTemplate = document.getElementById('question-template');
+            questionsContainer.appendChild(qTemplate.content.cloneNode(true));
+        });
+    });
+
+    //добавляем первый опрос по умолчанию
+    setTimeout(() => {
+        if (document.getElementById('surveys-container').children.length === 0) {
+            document.getElementById('add-survey')?.click();
+        }
+    }, 100);
+
+    //логика показа/скрытия полей
+    document.addEventListener('change', function(e) {
+        if (e.target.name === 'question_type[]') {
+            const item = e.target.closest('.question-item');
+            if (!item) return;
+
+            const optionsField = item.querySelector('.options-field');
+            const scaleFields = item.querySelector('.scale-fields');
+
+            if (optionsField) {
+                optionsField.style.display = (e.target.value === 'single' || e.target.value === 'multiple') ? 'block' : 'none';
+            }
+            if (scaleFields) {
+                scaleFields.style.display = e.target.value === 'scale' ? 'block' : 'none';
+            }
+        }
+    });
+});
+</script>

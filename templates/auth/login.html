@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Вход в аккаунт{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-header">
+        <h1>🔐 Вход в аккаунт</h1>
+        <p>Войдите, чтобы управлять своими ботами</p>
+    </div>
+
+    <form method="POST" action="" class="auth-form" id="loginForm">
+        {{ form.hidden_tag() }}
+        
+        <div class="form-group">
+            {{ form.email.label }}
+            {{ form.email(class="form-control", placeholder="your@email.com", id="email") }}
+            <div class="error-message" id="emailError"></div>
+        </div>
+
+        <div class="form-group">
+            {{ form.password.label }}
+            {{ form.password(class="form-control", placeholder="••••••••", id="password") }}
+            <div class="error-message" id="passwordError"></div>
+        </div>
+
+        <div class="form-check">
+            {{ form.remember_me(class="form-check-input", id="remember") }}
+            {{ form.remember_me.label(class="form-check-label") }}
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-large" id="submitBtn">
+            Войти
+        </button>
+    </form>
+
+    <div class="auth-footer">
+        <p>Нет аккаунта? <a href="{{ url_for('auth.register') }}">Зарегистрироваться</a></p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+{% endblock %}

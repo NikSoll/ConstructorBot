@@ -1,0 +1,49 @@
+{% extends "create/platforms/base_create.html" %}
+
+{% block platform %}vk{% endblock %}
+{% block form_title %}🔵 Создание VK бота{% endblock %}
+
+{% block platform_fields %}
+<div class="form-section">
+    <h3>🔧 Настройки ВКонтакте</h3>
+
+    <div class="form-group">
+        <label for="vk_token">Токен сообщества *</label>
+        <input type="text" id="vk_token" name="vk_token" class="form-control" required
+               placeholder="vk1.a.1234567890abcdef...">
+        <small class="form-text">
+            Управление → Работа с API → Ключи доступа
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label for="group_id">ID группы *</label>
+        <input type="text" id="group_id" name="group_id" class="form-control" required
+               placeholder="123456789">
+        <small class="form-text">
+            Цифры из адресной строки: vk.com/club<b>123456789</b>
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label for="admin_id">Admin ID (для уведомлений)</label>
+        <input type="text" id="admin_id" name="admin_id" class="form-control"
+               placeholder="6496349641" value="6496349641">
+        <small class="form-text">Ваш ID в VK (Обязательно числом)</small>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_fields %}
+    {% if bot_type == 'make' %}
+        {% include "create/base/make_fields.html" %}
+    {% elif bot_type == 'shop' %}
+        {% include "create/base/shop_fields.html" %}
+    {% elif bot_type == 'quiz' %}
+        {% include "create/base/quiz_fields.html" %}
+    {% elif bot_type == 'survey' %}
+        {% include "create/base/survey_fields.html" %}
+    {% elif bot_type == 'mailer' %}
+        {% include "create/base/mailer_fields.html" %}
+    {% endif %}
+{% endblock %}

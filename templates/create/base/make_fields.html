@@ -1,0 +1,164 @@
+{% block form_title %}💅 Бот записи на услуги{% endblock %}
+<div class="form-section">
+    <h2>🏢 Информация о салоне</h2>
+
+    <div class="form-group">
+        <label for="shop_name">Название салона</label>
+        <input type="text" id="shop_name" name="shop_name" class="form-control"
+               value="Салон красоты">
+    </div>
+
+    <div class="form-group">
+        <label for="address">Адрес</label>
+        <input type="text" id="address" name="address" class="form-control"
+               value="г. Омск, ул. Масленникова, д. 45">
+    </div>
+
+    <div class="form-row">
+        <div class="form-group half">
+            <label for="phone">Телефон</label>
+            <input type="text" id="phone" name="phone" class="form-control"
+                   value="+7 (905) 190-01-54">
+        </div>
+        <div class="form-group half">
+            <label for="working_hours">Часы работы</label>
+            <input type="text" id="working_hours" name="working_hours" class="form-control"
+                   value="Пн-Пт: 10:00-20:00, Сб-Вс: 11:00-18:00">
+        </div>
+    </div>
+</div>
+
+<div class="form-section">
+    <h2>👩‍🎨 Мастера</h2>
+    <div id="masters-container">
+    </div>
+    <button type="button" class="btn btn-outline add-btn" id="add-master">
+        ➕ Добавить мастера
+    </button>
+</div>
+
+<div class="form-section">
+    <h2>💇 Услуги и цены</h2>
+    <div id="services-container"></div>
+    <button type="button" class="btn btn-outline add-btn" id="add-service">
+        ➕ Добавить услугу
+    </button>
+</div>
+
+<div class="form-section">
+    <h2>💬 Сообщения</h2>
+
+    <div class="form-group">
+        <label for="welcome_message">Приветственное сообщение</label>
+        <textarea id="welcome_message" name="welcome_message" class="form-control" rows="3">💅 Добро пожаловать в салон красоты! Я помогу вам записаться на процедуру.</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="success_message">Сообщение после записи</label>
+        <textarea id="success_message" name="success_message" class="form-control" rows="3">✅ Запись оформлена! Мы свяжемся с вами для подтверждения.</textarea>
+    </div>
+</div>
+
+<div class="form-section">
+    <h2>🕐 Доступное время для записи</h2>
+
+    <div class="form-group">
+        <label for="available_times">Временные слоты *</label>
+        <textarea id="available_times" name="available_times" class="form-control" rows="5" required>10:00
+11:00
+12:00
+13:00
+14:00
+15:00
+16:00
+17:00
+18:00
+19:00</textarea>
+        <small class="form-text">Каждое время с новой строки. Клиент сможет выбрать только из этих слотов.</small>
+    </div>
+</div>
+
+<template id="master-template">
+    <div class="array-item master-item">
+        <button type="button" class="remove-item" title="Удалить">✖</button>
+        <div class="form-row">
+            <div class="form-group half">
+                <label>Имя мастера *</label>
+                <input type="text" name="master_name[]" class="form-control" required>
+            </div>
+            <div class="form-group small">
+                <label>Эмодзи</label>
+                <input type="text" name="master_emoji[]" class="form-control" value="👤" maxlength="2">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Описание</label>
+            <input type="text" name="master_desc[]" class="form-control"
+                   placeholder="Мастер маникюра, стаж 5 лет">
+        </div>
+        <div class="form-group">
+            <label>Специализация</label>
+            <input type="text" name="master_specialty[]" class="form-control"
+                   placeholder="Маникюр, педикюр">
+        </div>
+        <div class="form-group">
+            <label>Фото работы (URL)</label>
+            <input type="url" name="master_photo[]" class="form-control" placeholder="https://example.com/photo.jpg">
+            <small>Ссылка на фото примера работы</small>
+        </div>
+    </div>
+</template>
+
+<template id="service-template">
+    <div class="array-item service-item">
+        <button type="button" class="remove-item" title="Удалить">✖</button>
+        <div class="form-row">
+            <div class="form-group half">
+                <label>Название услуги *</label>
+                <input type="text" name="service_name[]" class="form-control" required>
+            </div>
+            <div class="form-group quarter">
+                <label>Цена</label>
+                <input type="text" name="service_price[]" class="form-control" placeholder="1500">
+            </div>
+            <div class="form-group quarter">
+                <label>Длительность</label>
+                <input type="number" name="service_duration[]" class="form-control" value="60" min="5" step="5">
+                <small>мин</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Описание</label>
+            <input type="text" name="service_desc[]" class="form-control" placeholder="Описание услуги">
+        </div>
+    </div>
+</template>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('add-master')?.addEventListener('click', function() {
+        const container = document.getElementById('masters-container');
+        const template = document.getElementById('master-template');
+        container.appendChild(template.content.cloneNode(true));
+    });
+
+    document.getElementById('add-service')?.addEventListener('click', function() {
+        const container = document.getElementById('services-container');
+        const template = document.getElementById('service-template');
+        container.appendChild(template.content.cloneNode(true));
+    });
+
+    setTimeout(() => {
+        if (document.getElementById('masters-container').children.length === 0) {
+            document.getElementById('add-master')?.click();
+            document.getElementById('add-master')?.click();
+            document.getElementById('add-master')?.click();
+        }
+        if (document.getElementById('services-container').children.length === 0) {
+            document.getElementById('add-service')?.click();
+            document.getElementById('add-service')?.click();
+            document.getElementById('add-service')?.click();
+        }
+    }, 100);
+});
+</script>

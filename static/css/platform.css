@@ -1,0 +1,251 @@
+/* заголовок */
+.page-header {
+    text-align: center;
+    color: white;
+    margin: 40px 0;
+    animation: fadeIn 0.8s ease;
+}
+
+.page-header h1 {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.page-header p {
+    font-size: 1.2rem;
+    opacity: 0.95;
+}
+
+/* сетка */
+.platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin: 50px 0;
+}
+
+/* общие стили для всех карточек */
+.platform-card {
+    background: white;
+    border-radius: 24px;
+    padding: 40px 30px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    animation: slideUp 0.6s ease;
+    animation-fill-mode: both;
+    display: block;
+    text-decoration: none;
+}
+
+.platform-card:nth-child(1) { animation-delay: 0.1s; }
+.platform-card:nth-child(2) { animation-delay: 0.2s; }
+.platform-card:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* декоративная полоска сверху */
+.platform-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--primary-color), #8b5cf6);
+}
+
+/*актив VK*/
+.platform-card.active {
+    cursor: pointer;
+}
+
+.platform-card.active:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* неактив TG, MAX*/
+.platform-card.disabled {
+    background: #e5e7eb;
+    filter: grayscale(0.6);
+    opacity: 0.7;
+    cursor: not-allowed;
+    pointer-events: none;
+    color: #6b7280;
+}
+
+.platform-card.disabled::before {
+    background: linear-gradient(90deg, #9ca3af, #6b7280);
+}
+
+.platform-card.disabled h2 {
+    color: #6b7280;
+}
+
+.platform-card.disabled .platform-desc {
+    color: #9ca3af;
+}
+
+.platform-card.disabled .platform-features li {
+    color: #9ca3af;
+}
+
+.platform-card.disabled .platform-features li::before {
+    color: #9ca3af;
+}
+
+.platform-card.disabled .platform-icon img {
+    filter: grayscale(1);
+    opacity: 0.5;
+}
+
+.platform-card.disabled .btn-small {
+    background: #d1d5db;
+    color: #9ca3af;
+}
+
+/* иконки */
+.platform-icon {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.platform-icon img {
+    width: 80px;
+    height: 80px;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    transition: all 0.3s ease;
+}
+
+.platform-card h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 15px;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.platform-desc {
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.platform-desc strong {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.platform-features {
+    list-style: none;
+    margin: 25px 0;
+    padding: 0;
+}
+
+.platform-features li {
+    margin: 12px 0;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.platform-features li::before {
+    content: '✓';
+    color: var(--success-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* кнопки */
+.btn-small {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    background: var(--primary-color);
+    color: white;
+    text-align: center;
+}
+
+/* активная кнопка при наведении на карточку */
+.platform-card.active:hover .btn-small {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+/* информационный блок */
+.info-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 30px;
+    margin-top: 40px;
+    color: white;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.info-box h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.info-box p {
+    opacity: 0.95;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* адаптив */
+@media (max-width: 768px) {
+    .page-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .platform-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .platform-card {
+        padding: 30px 20px;
+    }
+
+    .platform-icon img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .platform-card h2 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .page-header p {
+        font-size: 1rem;
+    }
+
+    .info-box {
+        padding: 20px;
+    }
+}

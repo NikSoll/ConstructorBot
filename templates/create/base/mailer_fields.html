@@ -1,0 +1,101 @@
+{% block form_title %}📢 Рассыльщик{% endblock %}
+
+<div class="form-section">
+    <h2>🔧 Основные настройки</h2>
+
+    <div class="form-group">
+        <label for="mailer_name">Название бота</label>
+        <input type="text" id="mailer_name" name="mailer_name" class="form-control"
+               value="Рассыльщик">
+        <small class="form-text">Как будет называться ваш бот</small>
+    </div>
+
+    <div class="form-group">
+        <label for="welcome_message">Приветственное сообщение</label>
+        <textarea id="welcome_message" name="welcome_message" class="form-control" rows="3">📢 *Бот-рассыльщик*
+
+Выберите действие:</textarea>
+        <small class="form-text">Пользователь увидит это сообщение при команде /start</small>
+    </div>
+
+    <div class="form-group">
+        <label class="checkbox-label">
+            <input type="checkbox" name="subscribe_on_start" value="true" checked>
+            Автоматическая подписка при старте
+        </label>
+        <small class="form-text">Если включено, новые пользователи будут автоматически подписаны на первую рассылку</small>
+    </div>
+</div>
+
+<div class="form-section">
+    <h2>👥 Рассылки (группы)</h2>
+    <p class="form-text">Вы сможете создавать, удалять рассылки и отправлять сообщения в них через админ-панель бота.</p>
+
+    <div class="info-box" style="background: #f0f7ff; padding: 12px; border-radius: 8px; margin-bottom: 15px;">
+        💡 <strong>Подсказка:</strong> Рассылки можно будет создавать и удалять прямо в боте.
+        Здесь вы задаете только начальный список.
+    </div>
+
+    <div id="groups-container"></div>
+
+    <button type="button" class="btn btn-outline add-btn" id="add-group">
+        ➕ Добавить рассылку
+    </button>
+</div>
+
+<div class="form-section">
+    <h2>🔐 Настройки администратора</h2>
+
+    <div class="form-group">
+        <label for="admin_id">ID администратора *</label>
+        <input type="text" id="admin_id" name="admin_id" class="form-control" required
+               placeholder="6496349641" value="6496349641">
+        <small class="form-text">
+            Этот пользователь сможет управлять рассылками (создавать, удалять, отправлять сообщения)
+        </small>
+    </div>
+</div>
+
+<template id="group-template">
+    <div class="array-item group-item" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+        <button type="button" class="remove-item" title="Удалить рассылку">✖</button>
+
+        <div class="form-group">
+            <label>Название рассылки *</label>
+            <input type="text" name="group_name[]" class="form-control" required>
+            <small class="form-text">Например: «Новости», «Акции», «Важное»</small>
+        </div>
+
+        <div class="form-group">
+            <label>Описание рассылки</label>
+            <textarea name="group_desc[]" class="form-control" rows="2"
+                      placeholder="Что будут получать подписчики этой рассылки?"></textarea>
+        </div>
+    </div>
+</template>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const groupsContainer = document.getElementById('groups-container');
+    const addGroupBtn = document.getElementById('add-group');
+    const groupTemplate = document.getElementById('group-template');
+
+    addGroupBtn?.addEventListener('click', function() {
+        if (groupsContainer && groupTemplate) {
+            const clone = groupTemplate.content.cloneNode(true);
+            groupsContainer.appendChild(clone);
+        }
+    });
+
+    setTimeout(() => {
+        if (groupsContainer && groupsContainer.children.length === 0) {
+            const defaultGroup = groupTemplate.content.cloneNode(true);
+            const nameInput = defaultGroup.querySelector('[name="group_name[]"]');
+            const descInput = defaultGroup.querySelector('[name="group_desc[]"]');
+            if (nameInput) nameInput.value = 'Все подписчики';
+            if (descInput) descInput.value = 'Основная рассылка для всех подписчиков';
+            groupsContainer.appendChild(defaultGroup);
+        }
+    }, 100);
+});
+</script>

@@ -1,0 +1,42 @@
+{% extends "create/platforms/base_create.html" %}
+
+{% block platform %}tg{% endblock %}
+{% block form_title %}📱 Создание Telegram бота{% endblock %}
+
+{% block platform_fields %}
+<div class="form-section">
+    <h3>🔧 Настройки Telegram</h3>
+
+    <div class="form-group">
+        <label for="bot_token">Токен бота *</label>
+        <input type="text" id="bot_token" name="bot_token" class="form-control" required
+               placeholder="1234567890:AAF1B2C3d4E5f6G7h8I9j0K1L2M3N4O5P6Q7R8S9T0">
+        <small class="form-text">
+            Получите у <a href="https://t.me/BotFather" target="_blank">@BotFather</a> в Telegram
+        </small>
+    </div>
+
+    <div class="form-group">
+        <label for="admin_id">Admin ID (для уведомлений)</label>
+        <input type="text" id="admin_id" name="admin_id" class="form-control"
+               placeholder="6496349641" value="6496349641">
+        <small class="form-text">
+            Ваш ID в Telegram. Узнайте у <a href="https://t.me/userinfobot" target="_blank">@userinfobot</a>
+        </small>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_fields %}
+    {% if bot_type == 'make' %}
+        {% include "create/base/make_fields.html" %}
+    {% elif bot_type == 'shop' %}
+        {% include "create/base/shop_fields.html" %}
+    {% elif bot_type == 'quiz' %}
+        {% include "create/base/quiz_fields.html" %}
+    {% elif bot_type == 'survey' %}
+        {% include "create/base/survey_fields.html" %}
+    {% elif bot_type == 'mailer' %}
+        {% include "create/base/mailer_fields.html" %}
+    {% endif %}
+{% endblock %}

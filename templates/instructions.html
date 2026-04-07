@@ -1,0 +1,299 @@
+{% extends "base.html" %}
+
+{% block title %}Инструкция по настройке бота{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/instructions.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="instructions-container">
+    <div class="instructions-header">
+        <h1>📚 Инструкция по настройке бота</h1>
+        <p>Пошаговое руководство для быстрого старта</p>
+    </div>
+
+    <div class="step">
+        <h2>
+            <span class="step-number">1</span>
+            Создание бота в ВКонтакте
+        </h2>
+        
+        <h3>📌 Шаг 1.1: Создайте сообщество</h3>
+        <p>Для начала вам нужно создать сообщество ВКонтакте, которое будет вашим ботом:</p>
+        <ol>
+            <li>Перейдите на <a href="https://vk.com/groups" target="_blank">vk.com/groups</a></li>
+            <li>Нажмите кнопку <strong>«Создать сообщество»</strong></li>
+            <li>Выбирайте название и тематику под ваши интересы</li>
+            <li>Нажмите <strong>«Создать сообщество»</strong></li>
+        </ol>
+        
+        <div class="instruction-image">
+            <img src="{{ url_for('static', filename='img/vk_create_group.jpg') }}" alt="Создание сообщества ВК" onerror="this.style.display='none'">
+            <div class="image-caption">Создание нового сообщества</div>
+        </div>
+
+        <h3>🔑 Шаг 1.2: Получите токен сообщества</h3>
+        <ol>
+            <li>Зайдите в управление сообществом (кнопка <strong>«Управление»</strong>)</li>
+            <li>В левом меню выберите <strong>«Работа с API»</strong></li>
+            <li>Нажмите <strong>«Создать ключ»</strong></li>
+            <li>Выберите все разрешения (галочки)</li>
+            <li>Нажмите <strong>«Создать»</strong> и скопируйте полученный токен</li>
+            <li>Перейдите во вкладку <strong>Long Poll API</strong></li>
+            <li>Переключите с <strong>Выключено</strong> на <strong>Включено</strong></li>
+            <li>Перейдите во вкладку <strong>Типы событий</strong></li>
+            <li>Пометьте все пункты групп <strong>Сообщения</strong> и <strong>Фотографии</strong></li>
+        </ol>
+        
+        <div class="instruction-image">
+            <img src="{{ url_for('static', filename='img/vk_api_key.jpg') }}" alt="Получение токена ВК" onerror="this.style.display='none'">
+            <div class="image-caption">Создание ключа доступа API</div>
+        </div>
+        
+        <div class="tip-box">
+            <strong>💡 Совет:</strong>
+            Токен выглядит как <code>vk1.a.1234567890abcdef...</code>. Сохраните его в надежном месте — он нужен для работы бота.
+        </div>
+
+        <h3>🆔 Шаг 1.3: Получите ID группы</h3>
+        <p>ID группы — это цифры из адресной строки вашего сообщества:</p>
+        <ul>
+            <li>Откройте ваше сообщество в браузере</li>
+            <li>Посмотрите на адресную строку: <code>https://vk.com/club123456789</code></li>
+            <li>Цифры <strong>123456789</strong> — это ID вашей группы</li>
+        </ul>
+        
+        <div class="instruction-image">
+            <img src="{{ url_for('static', filename='img/vk_group_id.jpg') }}" alt="ID группы ВК" onerror="this.style.display='none'">
+            <div class="image-caption">Как найти ID группы (цифры после club)</div>
+        </div>
+        
+        <div class="warning-box">
+            <strong>⚠️ Важно:</strong>
+            Если в адресной строке написано название, а не club+цифры — нажмите на три точки под аватаром и выберите «Скопировать ссылку». В ссылке будут цифры.
+        </div>
+
+
+        <h3>🤖 Шаг 1.4: Включите возможности бота</h3>
+        <p>Чтобы бот мог отвечать на сообщения, нужно включить функцию <strong>«Возможности бота»</strong>:</p>
+        <ol>
+            <li>В управлении сообществом перейдите в раздел <strong>«Сообщения»</strong> потом <strong>«Настройки для бота»</strong></li>
+            <li>Включите переключатель <strong>«Возможности бота»</strong> (должен стать синим)</li>
+        </ol>
+
+        <div class="warning-box">
+            <strong>⚠️ Важно:</strong>
+            Без включённых «Возможностей бота» бот не сможет отправлять сообщения!
+        </div>
+    </div>
+
+    <div class="step">
+        <h2>
+            <span class="step-number">2</span>
+            Настройка Google Sheets
+        </h2>
+        <p>Для сохранения данных вашего бота (записи, заказы, результаты опросов) используются Google Таблицы.</p>
+
+        <h3>📊 Шаг 2.1: Какие листы нужны для каждого типа бота</h3>
+        <div class="sheets-grid">
+            <div class="sheet-card">
+                <h4>💅 Запись (make)</h4>
+                <p>Нужен лист: <code>Записи</code></p>
+                <p>Сохраняет: имя, телефон, услугу, мастера, дату, время</p>
+            </div>
+            <div class="sheet-card">
+                <h4>🛍️ Магазин (shop)</h4>
+                <p>Нужен лист: <code>Заказы</code></p>
+                <p>Сохраняет: имя, телефон, адрес, корзину, сумму</p>
+            </div>
+            <div class="sheet-card">
+                <h4>🎯 Квиз (quiz)</h4>
+                <p>Нужен лист: <code>Результаты квизов</code></p>
+                <p>Сохраняет: результаты тестов, баллы</p>
+            </div>
+            <div class="sheet-card">
+                <h4>📋 Опросник (survey)</h4>
+                <p>Нужен лист: <code>Результаты опросов</code></p>
+                <p>Сохраняет: ответы на вопросы (в JSON формате)</p>
+            </div>
+            <div class="sheet-card">
+                <h4>📢 Рассыльщик (mailer)</h4>
+                <p>Листы НЕ НУЖНЫ! Данные хранятся в самом боте</p>
+                <p>Подписки, рассылки и история — встроенное хранилище</p>
+            </div>
+        </div>
+
+        <h3>📝 Шаг 2.2: Создание Google таблицы</h3>
+        <ol>
+            <li>Зайдите в <a href="https://sheets.google.com" target="_blank">Google Sheets</a></li>
+            <li>Создайте новую таблицу (кнопка <strong>«+»</strong>)</li>
+            <li>Назовите таблицу, например: <code>Данные бота</code></li>
+            <li>Откройте доступ к таблице во вкладке <strong>Настройка доступа</strong></li>
+            <li>Создайте нужные листы (вкладки внизу) по инструкции выше</li>
+            <li>Скопируйте ссылку на таблицу из адресной строки</li>
+        </ol>
+        
+        <div class="instruction-image">
+            <img src="{{ url_for('static', filename='img/google_sheets_create.jpg') }}" alt="Создание Google таблицы" onerror="this.style.display='none'">
+            <div class="image-caption">Создание новой таблицы и листов</div>
+        </div>
+
+        <h3>🔐 Шаг 2.3: Настройка доступа для бота</h3>
+        <p>Чтобы бот мог записывать данные, нужно открыть доступ к таблице:</p>
+        <ol>
+            <li>В правом верхнем углу таблицы нажмите <strong>«Настройки доступа»</strong></li>
+            <li>Нажмите <strong>«Настроить доступ»</strong></li>
+            <li>Выберите <strong>«Все, у кого есть ссылка»</strong> → <strong>«Редактор»</strong></li>
+            <li>Скопируйте ссылку и вставьте в форму создания бота</li>
+        </ol>
+        
+        <div class="instruction-image">
+            <img src="{{ url_for('static', filename='img/google_sheets_share.jpg') }}" alt="Настройка доступа Google Sheets" onerror="this.style.display='none'">
+            <div class="image-caption">Открываем доступ по ссылке (достаточно «Редактор»)</div>
+        </div>
+        
+        <div class="tip-box">
+            <strong>💡 Важно:</strong>
+            Ссылка должна выглядеть так: 
+            <code>https://docs.google.com/spreadsheets/d/1AbCdEfGhIjKlMnOpQrStUvWxYz/edit</code>
+        </div>
+
+            <h3>🔐 Шаг 2.4: Добавьте сервисный аккаунт в доступ</h3>
+            <p>Если бот не может сохранить данные в таблицу, возможно, нужно добавить сервисный аккаунт вручную:</p>
+            <ol>
+                <li>Откройте вашу Google Таблицу</li>
+                <li>Нажмите <strong>«Настройки доступа»</strong></li>
+                <li>В поле для ввода email добавьте адрес сервисного аккаунта:<br>
+                    <code>marketplace-bot@digitalmarketplace-492113.iam.gserviceaccount.com</code></li>
+                <li>Выберите роль <strong>«Редактор»</strong></li>
+                <li>Нажмите <strong>«Отправить»</strong></li>
+            </ol>
+    </div>
+
+    <div class="step">
+        <h2>
+            <span class="step-number">3</span>
+            Как узнать свой ID
+        </h2>
+        <p>ID нужен, чтобы вы (как администратор) получали уведомления от бота.</p>
+
+        <h3>📱 Для VK:</h3>
+        <ol>
+            <li>Перейдите в свой профиль ВКонтакте</li>
+            <li>Посмотрите на адресную строку: <code>https://vk.com/id123456789</code></li>
+            <li>Цифры после <strong>/id</strong> — ваш ID</li>
+        </ol>
+        
+        <div class="instruction-image">
+            <img src="{{ url_for('static', filename='img/vk_user_id.jpg') }}" alt="ID пользователя ВК" onerror="this.style.display='none'">
+            <div class="image-caption">Как найти свой VK ID (цифры после /id)</div>
+        </div>
+        
+        <div class="warning-box">
+            <strong>⚠️ Внимание:</strong>
+            Если в адресной строке написано <code>https://vk.com/ваше_имя</code> — ваш ID скрыт. 
+            Откройте вкладку "Редактировать профиль", далее "Изменить в VK ID", под вашими ИмяФамилия будет ID.
+        </div>
+    </div>
+
+    <div class="step">
+        <h2>
+            <span class="step-number">4</span>
+            Запуск бота
+        </h2>
+        
+        <h3>🚀 После создания бота:</h3>
+        <p>Вы получаете ZIP-архив с тремя файлами:</p>
+        <ul>
+            <li><code>bot.exe</code> — сам бот (с графическим интерфейсом)</li>
+            <li><code>config.json</code> — настройки вашего бота</li>
+            <li><code>creds_*.json</code> — ключ для доступа к Google Sheets (если вы его указали)</li>
+        </ul>
+
+        <h3>📁 Запуск бота:</h3>
+        <ol>
+            <li>Распакуйте ZIP-архив в <strong>отдельную папку</strong> (не запускайте из временной папки)</li>
+            <li>Убедитесь, что все три файла лежат в одной папке</li>
+            <li>Дважды кликните по <code>bot.exe</code></li>
+            <li>Откроется графическое окно с кнопками <strong>«Запустить бота»</strong> и <strong>«Остановить бота»</strong></li>
+            <li>Нажмите <strong>«Запустить бота»</strong> — бот начнёт работу</li>
+        </ol>
+
+        <div class="tip-box">
+            <strong>💡 Совет:</strong>
+            Если при запуске открывается чёрное окно (консоль) — это нормально для первой версии. В следующих обновлениях мы её уберём.
+        </div>
+
+        <h3>⚠️ Возможные ошибки при запуске .exe:</h3>
+        <ul>
+            <li><strong>«Не найден config.json»</strong> — убедитесь, что файл лежит в той же папке, что и bot.exe</li>
+            <li><strong>Ошибка 403 при подключении к Google Sheets</strong> — добавьте сервисный аккаунт в доступ к таблице</li>
+            <li><strong>Бот не отвечает в VK</strong> — проверьте, что включены «Возможности бота» в настройках сообщества</li>
+        </ul>
+
+        <h3>💬 Первый запуск:</h3>
+        <p>После запуска бота отправьте команду <strong>/start</strong> в диалог с вашим ботом.</p>
+        <p>Если вы администратор (ID совпадает), вы увидите админ-панель с кнопками:</p>
+        <ul>
+            <li>📊 Статистика</li>
+            <li>📝 Управление рассылками</li>
+            <li>✉️ Отправить сообщение</li>
+        </ul>
+        
+        <div class="instruction-image">
+            <img src="{{ url_for('static', filename='img/bot_start.jpg') }}" alt="Команда /start" onerror="this.style.display='none'">
+            <div class="image-caption">После запуска отправьте боту команду /start</div>
+        </div>
+        
+        <div class="tip-box">
+            <strong>💡 Совет:</strong>
+            При первом запуске рассыльщик автоматически создаст в Google Sheets листы "Подписчики", "Рассылки" и "История рассылок", если их нет.
+        </div>
+    </div>
+
+    <div class="step">
+        <h2>
+            <span class="step-number">5</span>
+            Часто задаваемые вопросы
+        </h2>
+        
+        <h3>❓ Бот не отвечает</h3>
+        <p>Проверьте, что:</p>
+        <ul>
+            <li>Токен сообщества правильный и активный</li>
+            <li>В сообществе включены <strong>«Сообщения сообщества»</strong></li>
+            <li>В настройках API выбраны все разрешения</li>
+        </ul>
+        
+        <h3>❓ Данные не сохраняются в Google Sheets</h3>
+        <p>Проверьте:</p>
+        <ul>
+            <li>Правильно ли скопирована ссылка на таблицу</li>
+            <li>Открыт ли доступ «Все, у кого есть ссылка» → «Редактор»</li>
+            <li>Есть ли в таблице нужные листы (названия должны совпадать)</li>
+        </ul>
+        
+        <h3>❓ Не приходят уведомления администратору</h3>
+        <p>Убедитесь, что:</p>
+        <ul>
+            <li>Вы указали правильный ID администратора</li>
+            <li>У вас открыт диалог с ботом</li>
+            <li>Бот не заблокирован вами</li>
+        </ul>
+    </div>
+
+    <div class="tip-box" style="text-align: center; background: #e6f7e6;">
+        <strong>✨ Готово!</strong>
+        <p>Теперь вы можете создать своего бота. Если остались вопросы — пишите в поддержку!</p>
+    </div>
+</div>
+
+<script>
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        alert('Команда скопирована!');
+    });
+}
+</script>
+{% endblock %}

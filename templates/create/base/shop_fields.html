@@ -1,0 +1,172 @@
+{% block form_title %}🛍️ Интернет-магазин{% endblock %}
+<div class="form-section">
+    <h2>🔧 Настройки магазина</h2>
+
+    <div class="form-group">
+        <label for="shop_name">Название магазина</label>
+        <input type="text" id="shop_name" name="shop_name" class="form-control" value="Мой магазин">
+    </div>
+
+    <div class="form-row">
+        <div class="form-group half">
+            <label for="currency">Валюта</label>
+            <select id="currency" name="currency" class="form-control">
+                <option value="₽">Рубль (₽)</option>
+                <option value="$">Доллар ($)</option>
+                <option value="€">Евро (€)</option>
+            </select>
+        </div>
+        <div class="form-group half">
+            <label for="delivery_available">Доставка</label>
+            <select id="delivery_available" name="delivery_available" class="form-control">
+                <option value="true">Да</option>
+                <option value="false">Нет</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="form-section">
+    <h2>📁 Категории товаров</h2>
+    <div id="categories-container"></div>
+    <button type="button" class="btn btn-outline add-btn" id="add-category">
+        ➕ Добавить категорию
+    </button>
+</div>
+
+<div class="form-section">
+    <h2>📦 Товары</h2>
+    <div id="products-container"></div>
+    <button type="button" class="btn btn-outline add-btn" id="add-product">
+        ➕ Добавить товар
+    </button>
+</div>
+
+<div class="form-section">
+    <h2>📝 Настройки заказа</h2>
+
+    <div class="checkbox-group">
+        <label class="checkbox-label">
+            <input type="checkbox" name="ask_name" value="true" checked> Спрашивать имя
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" name="ask_phone" value="true" checked> Спрашивать телефон
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" name="ask_address" value="true" checked> Спрашивать адрес
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" name="ask_comment" value="true"> Спрашивать комментарий
+        </label>
+    </div>
+</div>
+
+<div class="form-section">
+    <h2>💬 Сообщения</h2>
+
+    <div class="form-group">
+        <label for="welcome_msg">Приветствие</label>
+        <textarea id="welcome_msg" name="welcome_msg" class="form-control" rows="2">🛍 Добро пожаловать в магазин!</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="cart_empty_msg">Корзина пуста</label>
+        <textarea id="cart_empty_msg" name="cart_empty_msg" class="form-control" rows="2">🛒 Корзина пуста</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="order_success_msg">Заказ оформлен</label>
+        <textarea id="order_success_msg" name="order_success_msg" class="form-control" rows="2">✅ Заказ оформлен! Спасибо за покупку.</textarea>
+    </div>
+</div>
+
+<template id="category-template">
+    <div class="array-item category-item">
+        <button type="button" class="remove-item" title="Удалить">✖</button>
+        <div class="form-row">
+            <div class="form-group half">
+                <label>Название категории *</label>
+                <input type="text" name="category_name[]" class="form-control" required>
+            </div>
+            <div class="form-group small">
+                <label>Эмодзи</label>
+                <input type="text" name="category_emoji[]" class="form-control" value="📦" maxlength="2">
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="product-template">
+    <div class="array-item product-item">
+        <button type="button" class="remove-item" title="Удалить">✖</button>
+
+        <div class="form-group">
+            <label>Название товара *</label>
+            <input type="text" name="product_name[]" class="form-control" required>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group half">
+                <label>Цена *</label>
+                <input type="number" name="product_price[]" class="form-control" required>
+            </div>
+            <div class="form-group half">
+                <label>Категория ID</label>
+                <input type="number" name="product_category[]" class="form-control" value="1" min="1">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Описание</label>
+            <textarea name="product_desc[]" class="form-control" rows="2"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Фото URL (опционально)</label>
+            <input type="url" name="product_photo[]" class="form-control" placeholder="https://...">
+        </div>
+    </div>
+</template>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('add-category')?.addEventListener('click', function() {
+        const container = document.getElementById('categories-container');
+        const template = document.getElementById('category-template');
+        container.appendChild(template.content.cloneNode(true));
+    });
+
+    document.getElementById('add-product')?.addEventListener('click', function() {
+        const container = document.getElementById('products-container');
+        const template = document.getElementById('product-template');
+        container.appendChild(template.content.cloneNode(true));
+    });
+
+    setTimeout(() => {
+        if (document.getElementById('categories-container').children.length === 0) {
+            const catContainer = document.getElementById('categories-container');
+            const catTemplate = document.getElementById('category-template');
+
+            const cat1 = catTemplate.content.cloneNode(true);
+            cat1.querySelector('[name="category_name[]"]').value = 'Одежда';
+            cat1.querySelector('[name="category_emoji[]"]').value = '👕';
+            catContainer.appendChild(cat1);
+
+            const cat2 = catTemplate.content.cloneNode(true);
+            cat2.querySelector('[name="category_name[]"]').value = 'Обувь';
+            cat2.querySelector('[name="category_emoji[]"]').value = '👟';
+            catContainer.appendChild(cat2);
+
+            const prodContainer = document.getElementById('products-container');
+            const prodTemplate = document.getElementById('product-template');
+
+            const prod1 = prodTemplate.content.cloneNode(true);
+            prod1.querySelector('[name="product_name[]"]').value = 'Футболка базовая';
+            prod1.querySelector('[name="product_price[]"]').value = '990';
+            prod1.querySelector('[name="product_category[]"]').value = '1';
+            prod1.querySelector('[name="product_desc[]"]').value = 'Хлопок 100%, размеры S-M-L';
+            prodContainer.appendChild(prod1);
+        }
+    }, 100);
+});
+</script>

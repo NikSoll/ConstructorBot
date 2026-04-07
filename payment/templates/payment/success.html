@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Оплата успешна{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/payment.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="payment-success-container">
+    <div class="success-icon">✅</div>
+    <h1 class="success-title">Оплата прошла успешно!</h1>
+    <p class="success-message">
+        Спасибо за покупку! Ваш бот готов к использованию.<br>
+        Вы можете скачать его или запустить на нашем сервере.
+    </p>
+    
+    {% if bot_id %}
+    <a href="{{ url_for('main.download_bot', bot_id=bot_id) }}" class="bot-link">
+        📥 Скачать бота
+    </a>
+    {% endif %}
+    
+    <a href="{{ url_for('main.list_bots') }}" class="home-link">
+        📋 К списку ботов
+    </a>
+</div>
+{% endblock %}

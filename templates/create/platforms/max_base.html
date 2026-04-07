@@ -1,0 +1,54 @@
+{% extends "create/platforms/base_create.html" %}
+
+{% block platform %}max{% endblock %}
+{% block form_title %}💬 Создание Max бота{% endblock %}
+
+{% block platform_fields %}
+<div class="form-section">
+    <h3>🔧 Настройки Max</h3>
+
+    <div class="form-group">
+        <label for="max_key">API ключ Max *</label>
+        <input type="text" id="max_key" name="max_key" class="form-control" required
+               placeholder="max_api_key_1234567890abcdef">
+        <small class="form-text">Получите в кабинете разработчика Max</small>
+    </div>
+
+    <div class="form-group">
+        <label for="bot_id">ID бота *</label>
+        <input type="text" id="bot_id" name="bot_id" class="form-control" required
+               placeholder="123456">
+    </div>
+
+    <div class="form-group">
+        <label for="admin_id">Admin ID (для уведомлений)</label>
+        <input type="text" id="admin_id" name="admin_id" class="form-control"
+               placeholder="6496349641" value="6496349641">
+    </div>
+
+    <div class="form-group">
+        <label for="webhook_url">Webhook URL</label>
+        <input type="url" id="webhook_url" name="webhook_url" class="form-control"
+               placeholder="https://your-domain.com/webhook">
+    </div>
+
+    <div class="form-group">
+        <label for="secret_key">Секретный ключ</label>
+        <input type="text" id="secret_key" name="secret_key" class="form-control"
+               placeholder="your_secret_key">
+    </div>
+</div>
+{% endblock %}
+{% block extra_fields %}
+    {% if bot_type == 'make' %}
+        {% include "create/base/make_fields.html" %}
+    {% elif bot_type == 'shop' %}
+        {% include "create/base/shop_fields.html" %}
+    {% elif bot_type == 'quiz' %}
+        {% include "create/base/quiz_fields.html" %}
+    {% elif bot_type == 'survey' %}
+        {% include "create/base/survey_fields.html" %}
+    {% elif bot_type == 'mailer' %}
+        {% include "create/base/mailer_fields.html" %}
+    {% endif %}
+{% endblock %}

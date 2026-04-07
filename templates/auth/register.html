@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-container register">
+    <div class="auth-header">
+        <h1>📝 Регистрация</h1>
+        <p>Создайте аккаунт, чтобы создавать ботов</p>
+    </div>
+
+    <form method="POST" action="" class="auth-form" id="registerForm">
+        {{ form.hidden_tag() }}
+        
+        <div class="form-group">
+            {{ form.username.label }}
+            {{ form.username(class="form-control", placeholder="Иван Петров", id="username") }}
+            <div class="error-message" id="usernameError"></div>
+        </div>
+
+        <div class="form-group">
+            {{ form.email.label }}
+            {{ form.email(class="form-control", placeholder="your@email.com", id="email") }}
+            <div class="error-message" id="emailError"></div>
+        </div>
+
+        <div class="form-group">
+            {{ form.password.label }}
+            {{ form.password(class="form-control", placeholder="••••••••", id="password") }}
+            <div class="password-requirements" id="passwordRequirements">
+                <div class="req-item" id="lengthReq">❌ Минимум 6 символов</div>
+                <div class="req-item" id="numberReq">❌ Хотя бы одна цифра</div>
+                <div class="req-item" id="letterReq">❌ Хотя бы одна буква</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ form.password2.label }}
+            {{ form.password2(class="form-control", placeholder="••••••••", id="password2") }}
+            <div class="error-message" id="matchError"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-large" id="submitBtn" disabled>
+            Зарегистрироваться
+        </button>
+    </form>
+
+    <div class="auth-footer">
+        <p>Уже есть аккаунт? <a href="{{ url_for('auth.login') }}">Войти</a></p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+{% endblock %}

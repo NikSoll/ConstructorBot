@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bots.css') }}">
+{% endblock %}
+
+{% block title %}Мои боты{% endblock %}
+
+{% block content %}
+<div class="bots-header">
+    <h1>📋 Мои боты</h1>
+    <a href="{{ url_for('main.choose_platform') }}" class="btn btn-primary">+ Создать нового</a>
+</div>
+
+{% if bots %}
+    <div class="bots-grid">
+        {% for bot in bots %}
+            <div class="bot-card" data-bot-id="{{ bot.id }}">
+                <div class="bot-card-header">
+                    <div class="bot-icon">
+                        {% if bot.bot_type == 'make' %}💅
+                        {% elif bot.bot_type == 'shop' %}🛍️
+                        {% elif bot.bot_type == 'quiz' %}🎯
+                        {% elif bot.bot_type == 'survey' %}📋
+                        {% elif bot.bot_type == 'mailer' %}📢
+                        {% endif %}
+                    </div>
+                    <div class="bot-status status-{{ bot.status }}">
+                        {{ bot.status }}
+                    </div>
+                </div>
+                
+                <h3>{{ bot.name }}</h3>
+                
+                <div class="bot-info">
+                    <p><strong>Платформа:</strong> 
+                        {% if bot.platform == 'tg' %}📱 Telegram
+                        {% elif bot.platform == 'vk' %}🔵 ВКонтакте
+                        {% elif bot.platform == 'max' %}💬 Max
+                        {% endif %}
+                    </p>
+                    <p><strong>Тип:</strong> 
+                        {% if bot.bot_type == 'make' %}Запись
+                        {% elif bot.bot_type == 'shop' %}Магазин
+                        {% elif bot.bot_type == 'quiz' %}Квиз
+                        {% elif bot.bot_type == 'survey' %}Опрос
+                        {% elif bot.bot_type == 'mailer' %}Рассылка
+                        {% endif %}
+                    </p>
+                    <p><strong>Токен:</strong> <code>{{ bot.token[:10] }}...</code></p>
+                    <p><strong>Создан:</strong> {{ bot.created_at.strftime('%d.%m.%Y %H:%M') }}</p>
+                </div>
+
+                <div class="bot-actions">
+                    <a href="{{ url_for('main.download_temp_bot', bot_id=bot.id) }}" class="btn btn-small btn-outline">
+                        📥 Скачать
+                    </a>
+                    <button class="btn btn-small btn-danger delete-bot" data-bot-id="{{ bot.id }}" data-bot-name="{{ bot.name }}">
+                        🗑️ Удалить
+                    </button>
+                </div>
+
+                <div class="bot-link-container">
+                    <a href="https://t.me/{{ bot.username }}" target="_blank" class="bot-link-btn" title="Открыть бота">
+                        🔗 Открыть бота
+                    </a>
+                </div>
+
+                <div class="bot-links">
+                    <a href="#" class="link">📁 Папка: {{ bot.folder_name }}</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-state">
+        <div class="empty-icon">🤖</div>
+        <h2>У вас пока нет ботов</h2>
+        <p>Создайте своего первого бота прямо сейчас!</p>
+        <a href="{{ url_for('main.choose_platform') }}" class="btn btn-primary btn-large">Создать бота</a>
+    </div>
+{% endif %}
+
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <h3>Удаление бота</h3>
+        <p>Вы уверены, что хотите удалить бота <span id="deleteBotName"></span>?</p>
+        <p class="warning">Это действие нельзя отменить!</p>
+        <form id="deleteForm" method="POST">
+            <button type="submit" class="btn btn-danger">Да, удалить</button>
+            <button type="button" class="btn btn-secondary close-modal">Отмена</button>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.copy-token').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const token = this.dataset.token;
+            navigator.clipboard.writeText(token).then(() => {
+                alert('Токен скопирован!');
+            });
+        });
+    });
+
+    const modal = document.getElementById('deleteModal');
+    const deleteForm = document.getElementById('deleteForm');
+    const deleteBotName = document.getElementById('deleteBotName');
+    
+    document.querySelectorAll('.delete-bot').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const botId = this.dataset.botId;
+            const botName = this.dataset.botName;
+            deleteForm.action = `/bot/${botId}/delete`;
+            deleteBotName.textContent = `"${botName}"`;
+            modal.style.display = 'block';
+        });
+    });
+
+    document.querySelectorAll('.close-modal').forEach(btn => {
+        btn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    });
+
+    document.querySelectorAll('.restart-bot').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const botId = this.dataset.botId;
+            if (confirm('Перезапустить бота?')) {
+                fetch(`/bot/${botId}/restart`, { method: 'POST' })
+                    .then(() => location.reload());
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

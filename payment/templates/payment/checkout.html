@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}Оплата бота{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/payment.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="payment-container">
+    <div class="payment-header">
+        <h1>💳 Оплата бота</h1>
+        <p>Завершите оплату, чтобы получить доступ к боту</p>
+    </div>
+
+    <div class="bot-info">
+        <div class="bot-info-row">
+            <span class="bot-info-label">Название бота:</span>
+            <span class="bot-info-value">{{ bot.name }}</span>
+        </div>
+        <div class="bot-info-row">
+            <span class="bot-info-label">Тип бота:</span>
+            <span class="bot-info-value">
+                {% if bot.bot_type == 'make' %}💅 Запись на услуги
+                {% elif bot.bot_type == 'shop' %}🛍️ Интернет-магазин
+                {% elif bot.bot_type == 'quiz' %}🎯 Квиз-бот
+                {% elif bot.bot_type == 'survey' %}📋 Опросник
+                {% elif bot.bot_type == 'mailer' %}📢 Рассыльщик
+                {% endif %}
+            </span>
+        </div>
+        <div class="bot-info-row">
+            <span class="bot-info-label">Платформа:</span>
+            <span class="bot-info-value">
+                {% if bot.platform == 'tg' %}📱 Telegram
+                {% elif bot.platform == 'vk' %}🔵 ВКонтакте
+                {% elif bot.platform == 'max' %}💬 Max
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
+    <div class="price-section">
+        <div class="price-label">К оплате:</div>
+        <div class="price-tag">
+            {{ "%.0f"|format(price) }} <span class="price-currency">₽</span>
+        </div>
+    </div>
+
+    <form action="{{ url_for('payment.create_payment') }}" method="POST" id="paymentForm">
+        <input type="hidden" name="bot_id" value="{{ bot.id }}">
+        
+        <div class="payment-methods">
+            <h3>Способ оплаты:</h3>
+            
+            <label class="payment-method-card">
+                <div class="payment-method-icon">💳</div>
+                <div class="payment-method-info">
+                    <div class="payment-method-name">Банковская карта</div>
+                    <div class="payment-method-desc">Visa, Mastercard, Мир</div>
+                </div>
+                <input type="radio" name="payment_method" value="card" class="payment-method-radio" checked>
+            </label>
+            
+            <label class="payment-method-card">
+                <div class="payment-method-icon">🏦</div>
+                <div class="payment-method-info">
+                    <div class="payment-method-name">ЮMoney</div>
+                    <div class="payment-method-desc">Кошелек ЮMoney</div>
+                </div>
+                <input type="radio" name="payment_method" value="wallet" class="payment-method-radio">
+            </label>
+            
+            <label class="payment-method-card">
+                <div class="payment-method-icon">📱</div>
+                <div class="payment-method-info">
+                    <div class="payment-method-name">СБП</div>
+                    <div class="payment-method-desc">Система быстрых платежей</div>
+                </div>
+                <input type="radio" name="payment_method" value="sbp" class="payment-method-radio">
+            </label>
+        </div>
+
+        <div class="alert alert-warning">
+            <strong>⚠️ Важно:</strong> После оплаты вы получите доступ к скачиванию бота и инструкции по запуску.
+        </div>
+
+        <button type="submit" class="pay-button" id="payButton">
+            Перейти к оплате
+        </button>
+    </form>
+
+    <div class="secure-badge">
+        <span>🔒</span> Безопасная оплата через ЮMoney
+        <span>🔒</span>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/payment.js') }}"></script>
+{% endblock %}

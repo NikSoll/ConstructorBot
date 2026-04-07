@@ -1,0 +1,433 @@
+.payment-container,
+.payment-success-container,
+.payment-fail-container,
+.payment-history-container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: var(--shadow-lg);
+}
+
+.payment-history-container {
+    max-width: 800px;
+}
+
+/*загол*/
+
+.payment-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.payment-header h1 {
+    font-size: 2rem;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.payment-header p {
+    color: var(--text-light);
+}
+
+/*инфа о боте*/
+
+.bot-info {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid var(--border-color);
+}
+
+.bot-info-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding: 5px 0;
+    border-bottom: 1px dashed #e2e8f0;
+}
+
+.bot-info-row:last-child {
+    border-bottom: none;
+}
+
+.bot-info-label {
+    color: var(--text-light);
+    font-weight: 500;
+}
+
+.bot-info-value {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/*цена*/
+
+.price-section {
+    text-align: center;
+    margin: 30px 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea0d 0%, #764ba20d 100%);
+    border-radius: 12px;
+}
+
+.price-label {
+    color: var(--text-light);
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.price-tag {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    line-height: 1.2;
+}
+
+.price-currency {
+    font-size: 1.5rem;
+    color: var(--text-light);
+}
+
+/*метод*/
+
+.payment-methods {
+    margin: 30px 0;
+}
+
+.payment-methods h3 {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.payment-method-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.payment-method-card:hover {
+    border-color: var(--primary-color);
+    background: #f8fafc;
+}
+
+.payment-method-icon {
+    font-size: 2rem;
+}
+
+.payment-method-info {
+    flex: 1;
+}
+
+.payment-method-name {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.payment-method-desc {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.payment-method-radio {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+}
+
+/*кнопка оплата*/
+
+.pay-button {
+    width: 100%;
+    padding: 16px;
+    font-size: 1.2rem;
+    background: var(--success-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+.pay-button:hover {
+    background: #0d9488;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.pay-button:disabled {
+    background: #cbd5e0;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* безопасность*/
+
+.secure-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.secure-badge span {
+    font-size: 1.2rem;
+}
+
+/*алерт*/
+
+.alert {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.alert-warning {
+    background: #fed7aa;
+    color: #92400e;
+    border: 1px solid #fcd34d;
+}
+
+/*успех*/
+
+.payment-success-container {
+    text-align: center;
+}
+
+.success-icon {
+    font-size: 5rem;
+    margin-bottom: 20px;
+}
+
+.success-title {
+    font-size: 2rem;
+    color: var(--success-color);
+    margin-bottom: 15px;
+}
+
+.success-message {
+    color: var(--text-light);
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.bot-link, .home-link {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.3s;
+    margin: 10px;
+    text-decoration: none;
+}
+
+.bot-link {
+    background: var(--primary-color);
+    color: white;
+}
+
+.bot-link:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.home-link {
+    background: #f1f5f9;
+    color: var(--text-color);
+}
+
+.home-link:hover {
+    background: #e2e8f0;
+}
+
+/*ошибька*/
+
+.payment-fail-container {
+    text-align: center;
+}
+
+.fail-icon {
+    font-size: 5rem;
+    margin-bottom: 20px;
+}
+
+.fail-title {
+    font-size: 2rem;
+    color: var(--danger-color);
+    margin-bottom: 15px;
+}
+
+.fail-message {
+    color: var(--text-light);
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.retry-link, .support-link {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.3s;
+    margin: 10px;
+    text-decoration: none;
+}
+
+.retry-link {
+    background: var(--primary-color);
+    color: white;
+}
+
+.retry-link:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.support-link {
+    background: #f1f5f9;
+    color: var(--text-color);
+}
+
+.support-link:hover {
+    background: #e2e8f0;
+}
+
+/*история*/
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.history-header h1 {
+    font-size: 2rem;
+    color: var(--text-color);
+}
+
+.payment-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.payment-table th {
+    text-align: left;
+    padding: 12px;
+    background: #f8fafc;
+    color: var(--text-color);
+    font-weight: 600;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.payment-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.payment-table tr:hover {
+    background: #f8fafc;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.status-paid {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-pending {
+    background: #fed7aa;
+    color: #92400e;
+}
+
+.status-failed {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-light);
+}
+
+.empty-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    margin-bottom: 20px;
+}
+
+/*адаптивка*/
+
+@media (max-width: 768px) {
+    .payment-container,
+    .payment-success-container,
+    .payment-fail-container,
+    .payment-history-container {
+        margin: 20px;
+        padding: 25px;
+    }
+
+    .price-tag {
+        font-size: 2.5rem;
+    }
+
+    .payment-table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .history-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .payment-method-card {
+        flex-wrap: wrap;
+    }
+
+    .price-tag {
+        font-size: 2rem;
+    }
+
+    .bot-info-row {
+        flex-direction: column;
+        gap: 5px;
+    }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TheMomBot - Конструктор ботов{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+
+    <meta name="description" content="Создайте своего бота за 5 минут без программирования">
+    <meta name="keywords" content="бот, telegram, vk, max, конструктор">
+
+    <!-- Рекламные скрипты (будут добавлены только если реклама включена)
+    {% if ad_scripts %}
+        {{ ad_scripts|safe }}
+    {% endif %} -->
+</head>
+<body>
+    <div class="container">
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <a href="{{ url_for('main.index') }}" class="logo">🤖 TheMomBot</a>
+            </div>
+            <div class="nav-links">
+                <a href="{{ url_for('main.index') }}">🏠 Главная</a>
+                <a href="{{ url_for('main.choose_platform') }}">➕ Создать</a>
+                <a href="{{ url_for('main.list_bots') }}">📋 Мои боты</a>
+
+                {% if current_user.is_authenticated %}
+                <div class="nav-dropdown">
+                    <button class="nav-dropdown-btn">
+                        👤 {{ current_user.username }} ▼
+                    </button>
+                    <div class="nav-dropdown-content">
+                        <a href="{{ url_for('auth.profile') }}">👤 Профиль</a>
+                        <a href="{{ url_for('auth.logout') }}">🚪 Выйти</a>
+                    </div>
+                </div>
+                {% else %}
+                <a href="{{ url_for('auth.login') }}" class="btn-profile">Войти</a>
+                <a href="{{ url_for('auth.register') }}" class="btn-profile">Регистрация</a>
+                {% endif %}
+            </div>
+        </nav>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Реклама в шапке (только если есть)
+        {% if show_ad and show_ad('header') %}
+            <div class="ad-position ad-header">
+                {{ show_ad('header')|safe }}
+            </div>
+        {% endif %}-->
+
+        <main class="content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <!-- Реклама в подвале (только если есть)
+        {% if show_ad and show_ad('footer') %}
+            <div class="ad-position ad-footer">
+                {{ show_ad('footer')|safe }}
+            </div>
+        {% endif %}-->
+
+        <footer class="footer">
+            <p>© 2024 TheMomBot - Конструктор ботов для Telegram, VK и Max</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

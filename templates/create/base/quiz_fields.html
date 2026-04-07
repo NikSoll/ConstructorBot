@@ -1,0 +1,131 @@
+{% block form_title %}🎯 Квиз-бот{% endblock %}
+
+<div class="form-section">
+    <h2>🔧 Основные настройки</h2>
+    <div class="form-group">
+        <label for="bot_name">Название бота</label>
+        <input type="text" id="bot_name" name="bot_name" class="form-control" value="Квиз-бот">
+    </div>
+</div>
+
+<div class="form-section">
+    <h2>🎯 Квизы</h2>
+    <div class="info-box" style="margin-bottom: 15px; padding: 10px; background: #f0f7ff;">
+        <strong>📌 Вы можете создать несколько квизов в одном боте.</strong><br>
+        Пользователь сможет выбрать, какой квиз пройти.
+    </div>
+    <div id="quizzes-container"></div>
+    <button type="button" class="btn btn-outline add-btn" id="add-quiz">➕ Добавить квиз</button>
+</div>
+
+<template id="quiz-template">
+    <div class="array-item quiz-item" style="margin-bottom: 30px; border: 2px solid #667eea; background: #faf5ff;">
+        <button type="button" class="remove-item" title="Удалить квиз">✖</button>
+
+        <div class="form-group">
+            <label>Название квиза *</label>
+            <input type="text" name="quiz_name[]" class="form-control" required placeholder="Например: Тест: Какая ты звезда?">
+        </div>
+
+        <div class="form-group">
+            <label>Описание квиза</label>
+            <textarea name="quiz_desc[]" class="form-control" rows="2" placeholder="Краткое описание квиза"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>❓ Вопросы</label>
+            <div class="questions-container" style="margin-left: 20px;"></div>
+            <button type="button" class="btn btn-outline add-question-btn" style="margin-left: 20px;">➕ Добавить вопрос</button>
+        </div>
+
+        <div class="form-group">
+            <label>🏆 Результаты</label>
+            <div class="results-container" style="margin-left: 20px;"></div>
+            <button type="button" class="btn btn-outline add-result-btn" style="margin-left: 20px;">➕ Добавить результат</button>
+        </div>
+    </div>
+</template>
+
+<template id="question-template">
+    <div class="array-item question-item" style="margin-top: 10px;">
+        <button type="button" class="remove-item" title="Удалить вопрос">✖</button>
+        <div class="form-group">
+            <label>Текст вопроса *</label>
+            <input type="text" name="question_text[]" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Варианты ответов (каждый с новой строки) *</label>
+            <textarea name="question_options[]" class="form-control" rows="3" required
+                      placeholder="Вариант 1&#10;Вариант 2&#10;Вариант 3"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Баллы за варианты (через запятую) *</label>
+            <input type="text" name="question_points[]" class="form-control" required
+                   placeholder="10,5,0">
+            <small>Количество баллов = количеству вариантов</small>
+        </div>
+    </div>
+</template>
+
+<template id="result-template">
+    <div class="array-item result-item" style="margin-top: 10px;">
+        <button type="button" class="remove-item" title="Удалить результат">✖</button>
+        <div class="form-group">
+            <label>Ключ результата (латиницей) *</label>
+            <input type="text" name="result_type[]" class="form-control" required placeholder="star">
+        </div>
+        <div class="form-group">
+            <label>Текст результата *</label>
+            <textarea name="result_text[]" class="form-control" rows="3" required>🌟 Ваш результат</textarea>
+        </div>
+        <div class="form-group">
+            <label>Минимальные баллы для этого результата</label>
+            <input type="number" name="result_min_score[]" class="form-control" value="0">
+        </div>
+    </div>
+</template>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let quizCounter = 0;
+
+    //новой квиз
+    document.getElementById('add-quiz')?.addEventListener('click', function() {
+        const container = document.getElementById('quizzes-container');
+        const template = document.getElementById('quiz-template');
+        const clone = template.content.cloneNode(true);
+
+        //индексы для динамических полей
+        const quizIndex = quizCounter++;
+        clone.querySelectorAll('.questions-container, .results-container').forEach(el => {
+            el.dataset.quizIndex = quizIndex;
+        });
+
+        container.appendChild(clone);
+
+        //обработчики для кнопок внутри нового квиза
+        const quizItem = container.lastElementChild;
+        const addQuestionBtn = quizItem.querySelector('.add-question-btn');
+        const addResultBtn = quizItem.querySelector('.add-result-btn');
+        const questionsContainer = quizItem.querySelector('.questions-container');
+        const resultsContainer = quizItem.querySelector('.results-container');
+
+        addQuestionBtn?.addEventListener('click', function() {
+            const qTemplate = document.getElementById('question-template');
+            questionsContainer.appendChild(qTemplate.content.cloneNode(true));
+        });
+
+        addResultBtn?.addEventListener('click', function() {
+            const rTemplate = document.getElementById('result-template');
+            resultsContainer.appendChild(rTemplate.content.cloneNode(true));
+        });
+    });
+
+    //первый квиз по умолчанию
+    setTimeout(() => {
+        if (document.getElementById('quizzes-container').children.length === 0) {
+            document.getElementById('add-quiz')?.click();
+        }
+    }, 100);
+});
+</script>

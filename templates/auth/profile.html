@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}Личный кабинет{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-sidebar">
+        <div class="profile-avatar">
+            <div class="avatar-circle">
+                {{ current_user.username[0]|upper }}
+            </div>
+            <div class="profile-name">{{ current_user.username }}</div>
+            <div class="profile-email">{{ current_user.email }}</div>
+        </div>
+
+        <div class="profile-stats">
+            <div class="stat-item">
+                <span class="stat-label">Всего ботов</span>
+                <span class="stat-value">{{ bots_count }}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Зарегистрирован</span>
+                <span class="stat-value">{{ current_user.created_at.strftime('%d.%m.%Y') }}</span>
+            </div>
+        </div>
+
+        <ul class="profile-menu">
+            <li><a href="#profile" class="active" data-tab="profile">👤 Профиль</a></li>
+            <li><a href="#bots" data-tab="bots">🤖 Мои боты</a></li>
+            <!--сюда потом настройки -->
+        </ul>
+    </div>
+
+    <div class="profile-content">
+        <div id="profile-tab" class="tab-content active">
+            <div class="content-header">
+                <h2>👤 Редактировать профиль</h2>
+                <p>Обновите вашу личную информацию</p>
+            </div>
+
+            <form method="POST" action="" class="profile-form" id="profileForm">
+                {{ form.hidden_tag() }}
+
+                <div class="form-group">
+                    {{ form.username.label }}
+                    {{ form.username(class="form-control", id="username") }}
+                    <div class="error-message" id="usernameError"></div>
+                </div>
+
+                <div class="form-group">
+                    {{ form.email.label }}
+                    {{ form.email(class="form-control", id="email") }}
+                    <div class="error-message" id="emailError"></div>
+                </div>
+
+                <div class="password-section">
+                    <h3>🔐 Смена пароля</h3>
+                    <p class="text-muted">Оставьте поля пустыми, если не хотите менять пароль</p>
+
+                    <div class="form-group">
+                        {{ form.current_password.label }}
+                        {{ form.current_password(class="form-control", id="currentPassword") }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.new_password.label }}
+                        {{ form.new_password(class="form-control", id="newPassword") }}
+                        <div class="password-requirements" id="passwordRequirements">
+                            <div class="req-item" id="lengthReq">❌ Минимум 6 символов</div>
+                            <div class="req-item" id="numberReq">❌ Хотя бы одна цифра</div>
+                            <div class="req-item" id="letterReq">❌ Хотя бы одна буква</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {{ form.confirm_password.label }}
+                        {{ form.confirm_password(class="form-control", id="confirmPassword") }}
+                        <div class="error-message" id="matchError"></div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">💾 Сохранить изменения</button>
+            </form>
+
+            <div class="danger-zone">
+                <h3>⚠️ Опасная зона</h3>
+                <p>Удаление аккаунта приведет к безвозвратной потере всех ваших ботов</p>
+                <button class="btn btn-danger-outline" id="deleteAccountBtn">
+                    🗑️ Удалить аккаунт
+                </button>
+            </div>
+        </div>
+
+        <div id="bots-tab" class="tab-content">
+            <div class="content-header">
+                <h2>🤖 Мои боты</h2>
+                <p>Управляйте своими созданными ботами</p>
+            </div>
+
+            {% if recent_bots %}
+                <div class="bots-mini-grid" id="botsGrid">
+                    {% for bot in recent_bots %}
+                        <div class="bot-mini-card" onclick="location.href='{{ url_for('main.list_bots') }}'" data-bot-id="{{ bot.id }}">
+                            <div class="bot-mini-header">
+                                <span class="bot-mini-icon">
+                                    {% if bot.bot_type == 'make' %}💅
+                                    {% elif bot.bot_type == 'shop' %}🛍️
+                                    {% elif bot.bot_type == 'quiz' %}🎯
+                                    {% elif bot.bot_type == 'survey' %}📋
+                                    {% elif bot.bot_type == 'mailer' %}📢
+                                    {% endif %}
+                                </span>
+                                <span class="bot-mini-name">{{ bot.name }}</span>
+                            </div>
+                            <div class="bot-mini-type">
+                                {% if bot.platform == 'tg' %}📱 Telegram
+                                {% elif bot.platform == 'vk' %}🔵 ВКонтакте
+                                {% elif bot.platform == 'max' %}💬 Max
+                                {% endif %}
+                            </div>
+                            <div class="bot-mini-date">
+                                Создан: {{ bot.created_at.strftime('%d.%m.%Y') }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                {% if bots_count > 5 %}
+                    <div class="text-center">
+                        <a href="{{ url_for('main.list_bots') }}" class="btn btn-outline">Все боты →</a>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="empty-state">
+                    <div class="empty-icon">🤖</div>
+                    <p>У вас пока нет ботов</p>
+                    <a href="{{ url_for('main.choose_platform') }}" class="btn btn-primary">
+                        ✨ Создать первого бота
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- модалка удаления-->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <h3>Удаление аккаунта</h3>
+        <p>Вы уверены, что хотите удалить свой аккаунт?</p>
+        <p class="warning">Это действие нельзя отменить! Все ваши боты будут удалены.</p>
+        <form method="POST" action="{{ url_for('auth.delete_account') }}" id="deleteForm">
+            <button type="submit" class="btn btn-danger">Да, удалить</button>
+            <button type="button" class="btn btn-outline close-modal">Отмена</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
+{% endblock %}

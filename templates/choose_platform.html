@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/platform.css') }}">
+{% endblock %}
+
+{% block title %}Выберите платформу{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>📱 Выберите платформу</h1>
+    <p>На какой платформе будет работать ваш бот?</p>
+</div>
+
+<div class="platform-grid">
+
+    <a href="{{ url_for('main.choose_template', platform='vk') }}" class="platform-card active">
+        <div class="platform-icon">
+            <img src="{{ url_for('static', filename='img/vk.svg') }}" alt="ВКонтакте">
+        </div>
+        <h2>ВКонтакте</h2>
+        <p class="platform-desc">Боты для VK<br><strong>70M+</strong> пользователей</p>
+        <ul class="platform-features">
+            <li>✅ Клавиатуры</li>
+            <li>✅ Рассылки</li>
+            <li>✅ Товары VK</li>
+        </ul>
+        <span class="btn-small">Выбрать →</span>
+    </a>
+
+
+    <div class="platform-card disabled">
+        <div class="platform-icon">
+            <img src="{{ url_for('static', filename='img/telegram.svg') }}" alt="Telegram">
+        </div>
+        <h2>Telegram</h2>
+        <p class="platform-desc">Боты для Telegram<br><strong>900M+</strong> пользователей</p>
+        <ul class="platform-features">
+            <li>✅ Кнопки и меню</li>
+            <li>✅ Оплата через ЮMoney</li>
+            <li>✅ Уведомления</li>
+        </ul>
+        <span class="btn-small">🚧 В разработке</span>
+    </div>
+
+
+    <div class="platform-card disabled">
+        <div class="platform-icon">
+            <img src="{{ url_for('static', filename='img/max.svg') }}" alt="Max">
+        </div>
+        <h2>Max</h2>
+        <p class="platform-desc">Боты для Max<br><strong>Популярно в РФ</strong></p>
+        <ul class="platform-features">
+            <li>✅ Вебхуки</li>
+            <li>✅ API ключи</li>
+            <li>✅ Своя CRM</li>
+        </ul>
+        <span class="btn-small">🚧 В разработке</span>
+    </div>
+</div>
+
+<div class="info-box">
+    <h3>❓ Не знаете что выбрать?</h3>
+    <p>Сейчас доступны боты для ВКонтакте. Telegram и Max будут доступны в ближайшее время!</p>
+</div>
+{% endblock %}

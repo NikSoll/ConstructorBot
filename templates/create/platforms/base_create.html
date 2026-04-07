@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/create.css') }}">
+{% endblock %}
+
+{% block title %}{{ form_title|default('Создание бота') }}{% endblock %}
+
+{% block content %}
+<div class="create-container">
+    <div class="create-header">
+        <h1>{% block form_title %}Создание бота{% endblock %}</h1>
+        <div class="progress-bar">
+            <div class="progress-step active">1. Настройки</div>
+            <div class="progress-step">2. Проверка</div>
+            <div class="progress-step">3. Готово</div>
+        </div>
+    <div style="margin-top: 15px;">
+        <a href="{{ url_for('main.instructions') }}" target="_blank" class="btn btn-outline btn-small">
+            📖 Открыть инструкцию
+        </a>
+    </div>
+    </div>
+</div>
+
+    <form method="POST" action="{{ url_for('main.create_bot') }}" class="create-form" id="botForm">
+        <input type="hidden" name="platform" value="{% block platform %}{% endblock %}">
+        <input type="hidden" name="bot_type" value="{{ bot_type }}">
+
+        <div class="form-section">
+            <h2>📝 Основная информация</h2>
+            
+            <div class="form-group">
+                <label for="bot_name">Название бота *</label>
+                <input type="text" id="bot_name" name="bot_name" class="form-control" required
+                       placeholder="Например: Салон красоты бот" value="Мой бот">
+                <small class="form-text">Как пользователи будут видеть вашего бота</small>
+            </div>
+
+            {% block platform_fields %}{% endblock %}
+        </div>
+
+        {% block extra_fields %}{% endblock %}
+
+        <div class="form-section">
+            <h2>📊 Google Sheets интеграция</h2>
+            
+            <div class="form-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="use_sheets" id="useSheets" value="true" checked>
+                    Использовать Google Sheets для сохранения данных
+                </label>
+            </div>
+
+            <div id="sheets-settings" style="display: block;">
+                <div class="form-group">
+                    <label for="sheet_url">Ссылка на Google таблицу</label>
+                    <input type="url" id="sheet_url" name="sheet_url" class="form-control" required placeholder="https://docs.google.com/spreadsheets/d/...">
+                    <small class="form-text">Создайте таблицу и дайте доступ сервисному аккаунту</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-success btn-large" id="submitBtn">
+                ✨ Создать бота
+            </button>
+            <a href="{{ url_for('main.choose_template', platform=platform|default('tg')) }}" class="btn btn-outline">
+                ← Назад
+            </a>
+        </div>
+    </form>
+</div>
+{% block templates %}{% endblock %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const useSheets = document.getElementById('useSheets');
+    const sheetsSettings = document.getElementById('sheets-settings');
+    
+    if (useSheets) {
+        useSheets.addEventListener('change', function() {
+            sheetsSettings.style.display = this.checked ? 'block' : 'none';
+        });
+    }
+
+    const form = document.getElementById('botForm');
+    form.addEventListener('submit', function(e) {
+        const requiredFields = form.querySelectorAll('[required]');
+        let valid = true;
+        
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                field.classList.add('error');
+                valid = false;
+            } else {
+                field.classList.remove('error');
+            }
+        });
+
+        if (!valid) {
+            e.preventDefault();
+            alert('Пожалуйста, заполните все обязательные поля');
+        }
+    });
+});
+</script>
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/create.js') }}"></script>
+{% endblock %}
+{% endblock %}

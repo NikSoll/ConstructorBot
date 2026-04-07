@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/platform.css') }}">
+{% endblock %}
+
+{% block title %}Выберите тип бота{% endblock %}
+
+{% block content %}
+<div class="back-link-container">
+    <a href="{{ url_for('main.choose_platform') }}" class="back-link">← Назад к выбору платформы</a>
+</div>
+
+<div class="platform-header">
+    <h1>
+        {% if platform == 'tg' %}📱 Telegram
+        {% elif platform == 'vk' %}🔵 ВКонтакте
+        {% elif platform == 'max' %}💬 Max
+        {% endif %}
+    </h1>
+    <p>Выберите тип бота для создания</p>
+</div>
+
+<div class="templates-grid">
+    {% for t in templates %}
+    <div class="template-card">
+        <div class="template-icon">{{ t.icon }}</div>
+        <h3>{{ t.name }}</h3>
+        <p class="template-desc">{{ t.desc }}</p>
+        
+        <div class="template-features">
+            {% if t.code == 'make' %}
+                <span class="feature">✅ Выбор мастера</span>
+                <span class="feature">✅ Календарь</span>
+                <span class="feature">✅ Уведомления</span>
+            {% elif t.code == 'shop' %}
+                <span class="feature">✅ Категории</span>
+                <span class="feature">✅ Корзина</span>
+                <span class="feature">✅ Оформление</span>
+            {% elif t.code == 'quiz' %}
+                <span class="feature">✅ Вопросы</span>
+                <span class="feature">✅ Баллы</span>
+                <span class="feature">✅ Результаты</span>
+            {% elif t.code == 'survey' %}
+                <span class="feature">✅ Разные типы</span>
+                <span class="feature">✅ Анонимно</span>
+                <span class="feature">✅ Статистика</span>
+            {% elif t.code == 'mailer' %}
+                <span class="feature">✅ Подписка</span>
+                <span class="feature">✅ Группы</span>
+                <span class="feature">✅ Рассылки</span>
+            {% endif %}
+        </div>
+        
+        <a href="{{ url_for('main.create_bot_form', platform=platform, bot_type=t.code) }}" class="btn btn-primary btn-block">
+            Создать {{ t.name|lower }}
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

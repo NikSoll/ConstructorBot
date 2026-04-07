@@ -1,0 +1,31 @@
+#виртуал окружение
+.venv/
+venv/
+env/
+
+#Python
+__pycache__/
+*.pyc
+*.pyo
+
+#бд
+instance/
+*.db
+*.sqlite
+
+
+.env
+creds.json
+creds_*.json
+
+#сген боты
+bots/generated/
+*.exe
+*.zip
+
+#IDE
+.idea/
+.vscode/
+
+#логи
+*.log

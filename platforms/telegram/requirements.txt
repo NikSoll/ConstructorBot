@@ -1,0 +1,5 @@
+aiogram==3.3.0
+redis==5.0.1
+gspread==5.11.0
+google-auth==2.23.0
+python-dotenv==1.0.0

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block title %}TheMomBot - Создай своего бота за 5 минут{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h1>🤖 Создайте бота за 5 минут</h1>
+    <p class="hero-subtitle">Без программирования, для Telegram, VK и Max</p>
+    <a href="{{ url_for('main.choose_platform') }}" class="btn btn-primary btn-large">✨ Создать бота</a>
+</section>
+
+<section class="pricing-section">
+    <h2>💰 Тарифы</h2>
+    <div class="pricing-grid">
+        <div class="pricing-card server">
+            <div class="pricing-badge">🔥 Популярный</div>
+            <h3>🚀 На нашем сервере</h3>
+            <div class="price">от 400 ₽ <span>/мес</span></div>
+            <ul class="features">
+                <li>✅ Бот работает 24/7</li>
+                <li>✅ Автоматические обновления</li>
+                <li>✅ Техподдержка</li>
+                <li>✅ Резервное копирование</li>
+                <li>✅ Своя ссылка на бота</li>
+            </ul>
+            <a href="{{ url_for('main.choose_platform') }}" class="btn btn-outline">Выбрать</a>
+        </div>
+
+        <div class="pricing-card local">
+            <h3>📁 Свой сервер</h3>
+            <div class="price">Бесплатно</div>
+            <ul class="features">
+                <li>✅ Исходный код</li>
+                <li>✅ ZIP архив</li>
+                <li>✅ Можно изменять</li>
+                <li>❌ Нужен свой сервер</li>
+                <li>❌ Без поддержки</li>
+            </ul>
+            <a href="{{ url_for('main.choose_platform') }}" class="btn btn-outline">Выбрать</a>
+        </div>
+    </div>
+</section>
+
+<section class="how-it-works">
+    <h2>📌 Как это работает</h2>
+    <div class="steps">
+        <div class="step">
+            <div class="step-number">1</div>
+            <h3>Выбираете шаблон</h3>
+            <p>Запись, магазин, квиз, опрос или рассылка</p>
+        </div>
+        <div class="step">
+            <div class="step-number">2</div>
+            <h3>Заполняете настройки</h3>
+            <p>Добавляете мастеров, товары, вопросы</p>
+        </div>
+        <div class="step">
+            <div class="step-number">3</div>
+            <h3>Получаете бота</h3>
+            <p>На нашем сервере или ZIP архивом</p>
+        </div>
+    </div>
+</section>
+{% endblock %}
