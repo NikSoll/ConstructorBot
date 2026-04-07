@@ -58,8 +58,8 @@ Max адаптер - Заглушка
 ## Быстрый старт
 
 ```bash
-git clone https://github.com/yourname/TheMomBot.git
-cd TheMomBot
+git clone https://github.com/NikSoll/ConstructorBot.git
+cd ConstructorBot
 python -m venv .venv
 source .venv/bin/activate  # или .venv\Scripts\activate
 pip install -r requirements.txt
