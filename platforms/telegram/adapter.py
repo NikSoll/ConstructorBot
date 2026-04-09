@@ -15,7 +15,7 @@ class TelegramBot(BaseBot):
         super().__init__(config)
         self.token = config.get('token')
         self.bot = Bot(token=self.token)
-        redis_client = redis.from_url(config.get('redis_url', 'redis://localhost:6379/0'))
+        # redis_client = redis.from_url(config.get('redis_url', 'redis://localhost:6379/0'))
         self.storage = MemoryStorage()
         self.dp = Dispatcher(storage=self.storage)
         self._register_handlers()

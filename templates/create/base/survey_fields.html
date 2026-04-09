@@ -1,7 +1,7 @@
-{% block form_title %}📋 Опросник{% endblock %}
+{% block form_title %}Опросник{% endblock %}
 
 <div class="form-section">
-    <h2>🔧 Основные настройки</h2>
+    <h2>Основные настройки</h2>
     <div class="form-group">
         <label for="bot_name">Название бота</label>
         <input type="text" id="bot_name" name="bot_name" class="form-control" value="Опросник-бот">
@@ -9,13 +9,13 @@
 </div>
 
 <div class="form-section">
-    <h2>📋 Опросы</h2>
-    <div class="info-box" style="margin-bottom: 15px; padding: 10px; background: #f0f7ff;">
-        <strong>📌 Вы можете создать несколько опросов в одном боте.</strong><br>
+    <h2>Опросы</h2>
+   <div class="info-box">
+        <strong>Вы можете создать несколько опросов в одном боте.</strong><br>
         Пользователь сможет выбрать, какой опрос пройти.
     </div>
     <div id="surveys-container"></div>
-    <button type="button" class="btn btn-outline add-btn" id="add-survey">➕ Добавить опрос</button>
+    <button type="button" class="btn btn-outline add-btn" id="add-survey">Добавить опрос</button>
 </div>
 
 <template id="survey-template">
@@ -41,7 +41,7 @@
         <div class="form-group">
             <label>❓ Вопросы</label>
             <div class="questions-container" style="margin-left: 20px;"></div>
-            <button type="button" class="btn btn-outline add-question-btn" style="margin-left: 20px;">➕ Добавить вопрос</button>
+            <button type="button" class="btn btn-outline add-question-btn" style="margin-left: 20px;">Добавить вопрос</button>
         </div>
     </div>
 </template>
@@ -58,10 +58,10 @@
         <div class="form-group">
             <label>Тип вопроса</label>
             <select name="question_type[]" class="form-control">
-                <option value="text">📝 Текстовый ответ</option>
-                <option value="single">🔘 Один вариант</option>
-                <option value="multiple">✅ Несколько вариантов</option>
-                <option value="scale">📊 Оценка по шкале</option>
+                <option value="text">Текстовый ответ</option>
+                <option value="single">Один вариант</option>
+                <option value="multiple">Несколько вариантов</option>
+                <option value="scale">Оценка по шкале</option>
             </select>
         </div>
 

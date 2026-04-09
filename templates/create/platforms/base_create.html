@@ -17,7 +17,7 @@
         </div>
     <div style="margin-top: 15px;">
         <a href="{{ url_for('main.instructions') }}" target="_blank" class="btn btn-outline btn-small">
-            📖 Открыть инструкцию
+            Открыть инструкцию
         </a>
     </div>
     </div>
@@ -28,7 +28,7 @@
         <input type="hidden" name="bot_type" value="{{ bot_type }}">
 
         <div class="form-section">
-            <h2>📝 Основная информация</h2>
+            <h2>Основная информация</h2>
             
             <div class="form-group">
                 <label for="bot_name">Название бота *</label>
@@ -43,7 +43,7 @@
         {% block extra_fields %}{% endblock %}
 
         <div class="form-section">
-            <h2>📊 Google Sheets интеграция</h2>
+            <h2>Google Sheets интеграция</h2>
             
             <div class="form-group">
                 <label class="checkbox-label">
@@ -63,7 +63,7 @@
 
         <div class="form-actions">
             <button type="submit" class="btn btn-success btn-large" id="submitBtn">
-                ✨ Создать бота
+                Создать бота
             </button>
             <a href="{{ url_for('main.choose_template', platform=platform|default('tg')) }}" class="btn btn-outline">
                 ← Назад

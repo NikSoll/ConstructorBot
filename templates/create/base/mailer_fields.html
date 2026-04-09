@@ -1,7 +1,7 @@
-{% block form_title %}📢 Рассыльщик{% endblock %}
+{% block form_title %}Рассыльщик{% endblock %}
 
 <div class="form-section">
-    <h2>🔧 Основные настройки</h2>
+    <h2>Основные настройки</h2>
 
     <div class="form-group">
         <label for="mailer_name">Название бота</label>
@@ -12,7 +12,7 @@
 
     <div class="form-group">
         <label for="welcome_message">Приветственное сообщение</label>
-        <textarea id="welcome_message" name="welcome_message" class="form-control" rows="3">📢 *Бот-рассыльщик*
+        <textarea id="welcome_message" name="welcome_message" class="form-control" rows="3">*Бот-рассыльщик*
 
 Выберите действие:</textarea>
         <small class="form-text">Пользователь увидит это сообщение при команде /start</small>
@@ -28,23 +28,23 @@
 </div>
 
 <div class="form-section">
-    <h2>👥 Рассылки (группы)</h2>
+    <h2>Рассылки (группы)</h2>
     <p class="form-text">Вы сможете создавать, удалять рассылки и отправлять сообщения в них через админ-панель бота.</p>
 
-    <div class="info-box" style="background: #f0f7ff; padding: 12px; border-radius: 8px; margin-bottom: 15px;">
-        💡 <strong>Подсказка:</strong> Рассылки можно будет создавать и удалять прямо в боте.
+    <div class="info-box">
+        <strong>Подсказка:</strong> Рассылки можно будет создавать и удалять прямо в боте.
         Здесь вы задаете только начальный список.
     </div>
 
     <div id="groups-container"></div>
 
     <button type="button" class="btn btn-outline add-btn" id="add-group">
-        ➕ Добавить рассылку
+        Добавить рассылку
     </button>
 </div>
 
 <div class="form-section">
-    <h2>🔐 Настройки администратора</h2>
+    <h2>Настройки администратора</h2>
 
     <div class="form-group">
         <label for="admin_id">ID администратора *</label>
@@ -57,7 +57,7 @@
 </div>
 
 <template id="group-template">
-    <div class="array-item group-item" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+    <div class="array-item group-item">
         <button type="button" class="remove-item" title="Удалить рассылку">✖</button>
 
         <div class="form-group">

@@ -78,19 +78,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // выпад окно в навигац
 document.addEventListener('DOMContentLoaded', function() {
 
-    //закрыть при клик вне
-    const dropdowns = document.querySelectorAll('.nav-dropdown');
-
-    document.addEventListener('click', function(e) {
-        dropdowns.forEach(dropdown => {
-            if (!dropdown.contains(e.target)) {
-                const content = dropdown.querySelector('.nav-dropdown-content');
-                if (content) {
-                }
-            }
-        });
-    });
-
     const flashMessages = document.querySelectorAll('.flash-message');
 
     flashMessages.forEach(message => {

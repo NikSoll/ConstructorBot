@@ -1,4 +1,4 @@
-{% block form_title %}🎯 Квиз-бот{% endblock %}
+{% block form_title %}Квиз-бот{% endblock %}
 
 <div class="form-section">
     <h2>🔧 Основные настройки</h2>
@@ -9,9 +9,9 @@
 </div>
 
 <div class="form-section">
-    <h2>🎯 Квизы</h2>
-    <div class="info-box" style="margin-bottom: 15px; padding: 10px; background: #f0f7ff;">
-        <strong>📌 Вы можете создать несколько квизов в одном боте.</strong><br>
+    <h2>Квизы</h2>
+    <div class="info-box">
+        <strong>Вы можете создать несколько квизов в одном боте.</strong><br>
         Пользователь сможет выбрать, какой квиз пройти.
     </div>
     <div id="quizzes-container"></div>
@@ -35,13 +35,13 @@
         <div class="form-group">
             <label>❓ Вопросы</label>
             <div class="questions-container" style="margin-left: 20px;"></div>
-            <button type="button" class="btn btn-outline add-question-btn" style="margin-left: 20px;">➕ Добавить вопрос</button>
+            <button type="button" class="btn btn-outline add-question-btn" style="margin-left: 20px;">Добавить вопрос</button>
         </div>
 
         <div class="form-group">
-            <label>🏆 Результаты</label>
+            <label>Результаты</label>
             <div class="results-container" style="margin-left: 20px;"></div>
-            <button type="button" class="btn btn-outline add-result-btn" style="margin-left: 20px;">➕ Добавить результат</button>
+            <button type="button" class="btn btn-outline add-result-btn" style="margin-left: 20px;">Добавить результат</button>
         </div>
     </div>
 </template>
@@ -76,7 +76,7 @@
         </div>
         <div class="form-group">
             <label>Текст результата *</label>
-            <textarea name="result_text[]" class="form-control" rows="3" required>🌟 Ваш результат</textarea>
+            <textarea name="result_text[]" class="form-control" rows="3" required>Ваш результат</textarea>
         </div>
         <div class="form-group">
             <label>Минимальные баллы для этого результата</label>

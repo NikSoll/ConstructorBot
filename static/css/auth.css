@@ -3,11 +3,12 @@
 .auth-container {
     max-width: 450px;
     margin: 40px auto;
-    background: white;
+    background: #0d1f17;
     border-radius: 24px;
     padding: 40px;
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(16, 185, 129, 0.2);
     animation: slideUp 0.5s ease;
+    border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .auth-container.register {
@@ -32,12 +33,12 @@
 
 .auth-header h1 {
     font-size: 2rem;
-    color: var(--text-color);
+    color: #ecfdf5;
     margin-bottom: 10px;
 }
 
 .auth-header p {
-    color: var(--text-light);
+    color: #6ee7b7;
 }
 
 .auth-form .form-group {
@@ -48,21 +49,23 @@
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
-    color: var(--text-color);
+    color: #a7f3d0;
 }
 
 .auth-form .form-control {
     width: 100%;
     padding: 14px 18px;
-    border: 2px solid var(--border-color);
+    border: 1px solid #1a3a2a;
     border-radius: 12px;
     font-size: 1rem;
     transition: all 0.3s;
+    background: #06120c;
+    color: #d1fae5;
 }
 
 .auth-form .form-control:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2), 0 0 15px rgba(16, 185, 129, 0.3);
     outline: none;
 }
 
@@ -99,40 +102,44 @@
     text-align: center;
     margin-top: 30px;
     padding-top: 20px;
-    border-top: 2px solid var(--border-color);
+    border-top: 1px solid #1a3a2a;
 }
 
 .auth-footer a {
-    color: var(--primary-color);
+    color: #34d399;
     text-decoration: none;
     font-weight: 500;
+    text-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
 }
 
 .auth-footer a:hover {
     text-decoration: underline;
+    color: #10b981;
 }
 
 /*требов*/
 .password-requirements {
-    background: #f8fafc;
+    background: #06120c;
     border-radius: 10px;
     padding: 15px;
     margin-top: 10px;
     font-size: 0.9rem;
+    border: 1px solid #1a3a2a;
 }
 
 .req-item {
     margin: 5px 0;
-    color: var(--text-light);
+    color: #6ee7b7;
     transition: color 0.3s;
 }
 
 .req-item.valid {
-    color: var(--success-color);
+    color: #22c55e;
+    text-shadow: 0 0 8px rgba(34, 197, 94, 0.4);
 }
 
 .req-item.invalid {
-    color: var(--danger-color);
+    color: #ef4444;
 }
 
 /*ЛК*/
@@ -147,13 +154,14 @@
 
 /*бар*/
 .profile-sidebar {
-    background: white;
+    background: #0d1f17;
     border-radius: 20px;
     padding: 30px;
-    box-shadow: var(--shadow);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(16, 185, 129, 0.2);
     height: fit-content;
     position: sticky;
     top: 20px;
+    border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .profile-avatar {
@@ -164,7 +172,7 @@
 .avatar-circle {
     width: 120px;
     height: 120px;
-    background: linear-gradient(135deg, var(--primary-color), #8b5cf6);
+    background: linear-gradient(135deg, #10b981, #059669);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -172,28 +180,30 @@
     margin: 0 auto 15px;
     font-size: 3rem;
     font-weight: 600;
-    color: white;
-    box-shadow: var(--shadow);
+    color: #030906;
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+    border: 2px solid #34d399;
 }
 
 .profile-name {
     font-size: 1.3rem;
     font-weight: 600;
-    color: var(--text-color);
+    color: #ecfdf5;
     margin-bottom: 5px;
 }
 
 .profile-email {
-    color: var(--text-light);
+    color: #6ee7b7;
     font-size: 0.9rem;
     word-break: break-all;
 }
 
 .profile-stats {
-    background: #f8fafc;
+    background: #06120c;
     border-radius: 12px;
     padding: 20px;
     margin: 20px 0;
+    border: 1px solid rgba(16, 185, 129, 0.2);
 }
 
 .stat-item {
@@ -203,12 +213,13 @@
 }
 
 .stat-label {
-    color: var(--text-light);
+    color: #6ee7b7;
 }
 
 .stat-value {
     font-weight: 600;
-    color: var(--primary-color);
+    color: #34d399;
+    text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
 }
 
 .profile-menu {
@@ -225,26 +236,32 @@
     gap: 10px;
     padding: 12px 15px;
     border-radius: 10px;
-    color: var(--text-color);
+    color: #a7f3d0;
     text-decoration: none;
     transition: all 0.3s;
+    border: 1px solid transparent;
 }
 
 .profile-menu a:hover {
-    background: #f1f5f9;
+    background: #0a1a12;
+    border-color: rgba(16, 185, 129, 0.3);
+    color: #ecfdf5;
 }
 
 .profile-menu a.active {
-    background: var(--primary-color);
-    color: white;
+    background: #10b981;
+    color: #030906;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+    border-color: #34d399;
 }
 
 /*базаааааа*/
 .profile-content {
-    background: white;
+    background: #0d1f17;
     border-radius: 20px;
     padding: 40px;
-    box-shadow: var(--shadow);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(16, 185, 129, 0.2);
+    border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .tab-content {
@@ -271,12 +288,12 @@
 
 .content-header h2 {
     font-size: 1.8rem;
-    color: var(--text-color);
+    color: #ecfdf5;
     margin-bottom: 10px;
 }
 
 .content-header p {
-    color: var(--text-light);
+    color: #6ee7b7;
 }
 
 /*форма*/
@@ -292,39 +309,42 @@
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
-    color: var(--text-color);
+    color: #a7f3d0;
 }
 
 .profile-form .form-control {
     width: 100%;
     padding: 12px 16px;
-    border: 2px solid var(--border-color);
+    border: 1px solid #1a3a2a;
     border-radius: 10px;
     font-size: 1rem;
     transition: all 0.3s;
+    background: #06120c;
+    color: #d1fae5;
 }
 
 .profile-form .form-control:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2), 0 0 15px rgba(16, 185, 129, 0.3);
     outline: none;
 }
 
 .password-section {
-    background: #f8fafc;
+    background: #06120c;
     border-radius: 12px;
     padding: 25px;
     margin: 25px 0;
+    border: 1px solid #1a3a2a;
 }
 
 .password-section h3 {
     font-size: 1.2rem;
     margin-bottom: 15px;
-    color: var(--text-color);
+    color: #ecfdf5;
 }
 
 .text-muted {
-    color: var(--text-light);
+    color: #6ee7b7;
     font-size: 0.9rem;
     margin-bottom: 20px;
 }
@@ -338,39 +358,29 @@
 }
 
 .bot-mini-card {
-    background: #f8fafc;
+    background: #0d1f17;
     border-radius: 12px;
     padding: 20px;
     transition: all 0.3s;
     cursor: pointer;
-    border: 2px solid transparent;
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(16, 185, 129, 0.2);
 }
 
 .bot-mini-card:hover {
     transform: translateY(-3px);
-    box-shadow: var(--shadow);
-    border-color: var(--primary-color);
-}
-
-.bot-mini-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-
-.bot-mini-icon {
-    font-size: 2rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 15px rgba(16, 185, 129, 0.5), 0 0 0 2px rgba(16, 185, 129, 0.6);
+    border-color: #10b981;
 }
 
 .bot-mini-name {
     font-weight: 600;
-    color: var(--text-color);
+    color: #ecfdf5;
     font-size: 1.1rem;
 }
 
 .bot-mini-type {
-    color: var(--text-light);
+    color: #6ee7b7;
     font-size: 0.9rem;
     margin-bottom: 5px;
 }
@@ -384,37 +394,40 @@
 .danger-zone {
     margin-top: 40px;
     padding: 25px;
-    background: #fee2e2;
+    background: rgba(127, 29, 29, 0.3);
     border-radius: 12px;
-    border: 2px solid #fecaca;
+    border: 1px solid rgba(239, 68, 68, 0.4);
 }
 
 .danger-zone h3 {
-    color: var(--danger-color);
+    color: #f87171;
     margin-bottom: 10px;
     font-size: 1.2rem;
 }
 
 .danger-zone p {
-    color: #991b1b;
+    color: #fca5a5;
     margin-bottom: 20px;
     font-size: 0.95rem;
 }
 
 .btn-danger-outline {
     background: transparent;
-    border: 2px solid var(--danger-color);
-    color: var(--danger-color);
+    border: 1px solid #ef4444;
+    color: #f87171;
     padding: 12px 24px;
     border-radius: 8px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s;
+    box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.2);
 }
 
 .btn-danger-outline:hover {
-    background: var(--danger-color);
-    color: white;
+    background: #7f1d1d;
+    color: #fecaca;
+    border-color: #ef4444;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
 }
 
 /*пуст*/

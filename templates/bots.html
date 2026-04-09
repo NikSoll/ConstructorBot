@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class="bots-header">
-    <h1>📋 Мои боты</h1>
+    <h1>Мои боты</h1>
     <a href="{{ url_for('main.choose_platform') }}" class="btn btn-primary">+ Создать нового</a>
 </div>
 
@@ -34,9 +34,9 @@
                 
                 <div class="bot-info">
                     <p><strong>Платформа:</strong> 
-                        {% if bot.platform == 'tg' %}📱 Telegram
-                        {% elif bot.platform == 'vk' %}🔵 ВКонтакте
-                        {% elif bot.platform == 'max' %}💬 Max
+                        {% if bot.platform == 'tg' %}Telegram
+                        {% elif bot.platform == 'vk' %}ВКонтакте
+                        {% elif bot.platform == 'max' %}Max
                         {% endif %}
                     </p>
                     <p><strong>Тип:</strong> 
@@ -53,28 +53,28 @@
 
                 <div class="bot-actions">
                     <a href="{{ url_for('main.download_temp_bot', bot_id=bot.id) }}" class="btn btn-small btn-outline">
-                        📥 Скачать
+                        Скачать
                     </a>
                     <button class="btn btn-small btn-danger delete-bot" data-bot-id="{{ bot.id }}" data-bot-name="{{ bot.name }}">
-                        🗑️ Удалить
+                        Удалить
                     </button>
                 </div>
 
                 <div class="bot-link-container">
                     <a href="https://t.me/{{ bot.username }}" target="_blank" class="bot-link-btn" title="Открыть бота">
-                        🔗 Открыть бота
+                        Открыть бота
                     </a>
                 </div>
 
                 <div class="bot-links">
-                    <a href="#" class="link">📁 Папка: {{ bot.folder_name }}</a>
+                    <a href="#" class="link">Папка: {{ bot.folder_name }}</a>
                 </div>
             </div>
         {% endfor %}
     </div>
 {% else %}
     <div class="empty-state">
-        <div class="empty-icon">🤖</div>
+        <div class="empty-icon"></div>
         <h2>У вас пока нет ботов</h2>
         <p>Создайте своего первого бота прямо сейчас!</p>
         <a href="{{ url_for('main.choose_platform') }}" class="btn btn-primary btn-large">Создать бота</a>

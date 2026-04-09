@@ -22,11 +22,16 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     //удал элем
-    document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('remove-item')) {
-        const item = e.target.closest('.array-item, .master-item, .service-item, .product-item, .category-item, .question-item, .result-item, .group-item');
+document.addEventListener('click', function(e) {
+    const removeBtn = e.target.closest('.remove-item');
+    if (removeBtn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const item = removeBtn.closest('.array-item, .master-item, .service-item, .product-item, .category-item, .question-item, .result-item, .group-item, .quiz-item, .survey-item');
         if (item) {
-            item.style.animation = 'slideOut 0.3s ease';
+            item.style.transition = 'all 0.25s ease';
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(20px)';
             setTimeout(() => {
                 item.remove();
             }, 250);

@@ -20,26 +20,19 @@
     <div class="container">
         <nav class="main-nav">
             <div class="nav-brand">
-                <a href="{{ url_for('main.index') }}" class="logo">🤖 TheMomBot</a>
+                <a href="{{ url_for('main.index') }}" class="logo">🤖TheMomBot</a>
             </div>
             <div class="nav-links">
-                <a href="{{ url_for('main.index') }}">🏠 Главная</a>
-                <a href="{{ url_for('main.choose_platform') }}">➕ Создать</a>
-                <a href="{{ url_for('main.list_bots') }}">📋 Мои боты</a>
+                <a href="{{ url_for('main.index') }}">Главная</a>
+                <a href="{{ url_for('main.choose_platform') }}">Создать</a>
+                <a href="{{ url_for('main.list_bots') }}">Мои боты</a>
 
                 {% if current_user.is_authenticated %}
-                <div class="nav-dropdown">
-                    <button class="nav-dropdown-btn">
-                        👤 {{ current_user.username }} ▼
-                    </button>
-                    <div class="nav-dropdown-content">
-                        <a href="{{ url_for('auth.profile') }}">👤 Профиль</a>
-                        <a href="{{ url_for('auth.logout') }}">🚪 Выйти</a>
-                    </div>
-                </div>
+                    <a href="{{ url_for('auth.profile') }}">Профиль</a>
+                    <a href="{{ url_for('auth.logout') }}">Выйти</a>
                 {% else %}
-                <a href="{{ url_for('auth.login') }}" class="btn-profile">Войти</a>
-                <a href="{{ url_for('auth.register') }}" class="btn-profile">Регистрация</a>
+                    <a href="{{ url_for('auth.login') }}">Войти</a>
+                    <a href="{{ url_for('auth.register') }}">Регистрация</a>
                 {% endif %}
             </div>
         </nav>
